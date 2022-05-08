@@ -11,14 +11,15 @@ import SwiftUI
 
 public struct Item {
     let title: String
-    let id: String
+    let year: Int?
     let imageURL: String
 
     
     init(response: Response) {
         
         title = response.results.first?.title ?? ""
-        id = response.results.first?.id ?? ""
+        year = response.results.first?.seriesStartYear
+        
         imageURL = response.results.first?.image?.url ?? ""
 
         

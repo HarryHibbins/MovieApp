@@ -12,87 +12,106 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ViewModel
     @State private var searchText = ""
+    @State public var watchListArray: [String] = []
     
     var body: some View
     {
         
         NavigationView
+        {
+            VStack
             {
-                VStack
+                HStack
                 {
-                    HStack
-                    {
-                        TextField ("Search for...", text: $searchText)
+                    TextField ("Search for...", text: $searchText)
+                        .padding()
+                        .background(Color.gray.opacity(0.3).cornerRadius(10))
+                        .foregroundColor(.red)
+                        .font(.headline)
+                    
+                    Button(action : {
+                        searchItem()
+                    }, label: {
+                        Text("Submit")
                             .padding()
-                            .background(Color.gray.opacity(0.3).cornerRadius(10))
-                            .foregroundColor(.red)
+                        //   .frame(maxWidth: .infinity)
+                            .background(Color.blue.cornerRadius(10))
+                            .foregroundColor(.white)
                             .font(.headline)
-                            
-                        Button(action : {
-                            searchItem()
-                        }, label: {
-                            Text("Submit")
-                                .padding()
-                             //   .frame(maxWidth: .infinity)
-                                .background(Color.blue.cornerRadius(10))
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        })
-                      
-                    }.padding()
-                    Spacer()
-                    Text(viewModel.title)
-                                   .padding()
-                               AsyncImage(url: URL(string: viewModel.Image))
-                               { image in
-                                   image.resizable()
-                               } placeholder:
-                               {
-                                   ProgressView()
-                               }
-                               .scaledToFit()
-                               .padding()
-                   
-                           }.onAppear()
-                           {
-                               viewModel.refresh(forSearch: "Breakingbad")
-                           }
+                    })
+                    
+                }.padding()
+                Spacer()
+                AsyncImage(url: URL(string: viewModel.Image))
+                { image in
+                    image.resizable()
+                } placeholder:
+                {
+                    ProgressView()
                 }
-                   
+                .scaledToFit()
+                .padding()
+                
+                
+                HStack
+                {
+                    Text(viewModel.title)
+                    
+                    Spacer()
+                    
+                    Text(String(viewModel.year))
+                }.padding()
+                HStack
+                {
+                    Button(action : {
+                        //random suggestion
+                    }, label: {
+                        Text("Discard")
+                            .padding()
+                        //   .frame(maxWidth: .infinity)
+                            .background(Color.red.cornerRadius(10))
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    })
+                    Spacer()
+                    Button(action : {
+                        saveToWatchList()
+                    }, label: {
+                        Text("Save")
+                            .padding()
+                        //   .frame(maxWidth: .infinity)
+                            .background(Color.green.cornerRadius(10))
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    })
+                }.padding()
+            }
+            
+            
+            
+            .onAppear()
+            {
+                viewModel.refresh(forSearch: "Spidermannowayhome")
+            }
+            
+        }
         
-       
-                      
+        
+        
+        
     }
     
     public func searchItem()
     {
         viewModel.refresh(forSearch: searchText)
     }
+    
+    public func saveToWatchList()
+    {
+        watchListArray.append(viewModel.title)
+        print ("ITEM ADDED TO WATCHLIST: ", viewModel.title)
+    }
 }
-        
-
-      
-            
-    
-//        VStack
-//        {
-//            Text(viewModel.title)
-//                .padding()
-//            AsyncImage(url: URL(string: viewModel.Image))
-//            { image in
-//                image.resizable()
-//            } placeholder:
-//            {
-//                ProgressView()
-//            }
-//            .scaledToFit()
-//            .padding()
-//
-//        }.onAppear()
-//        {
-//            viewModel.refresh(forSearch: "Breakingbad")
-//        }
-    
 
 
 

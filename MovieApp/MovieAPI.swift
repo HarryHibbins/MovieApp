@@ -23,16 +23,16 @@ public final class MovieAPI : NSObject
     }
     
     public func getMovie(forSearch search: String){
-
-      
+        
+        
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
             "X-RapidAPI-Key": "102e089728msh794c597386f9554p171b9cjsn2700d9dce773"
         ]
-
+        
         
         let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
-
+        
         guard url != nil else {
             print ("Error creating URL object")
             return
@@ -40,8 +40,8 @@ public final class MovieAPI : NSObject
         
         //URL Request
         var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval:  10)
-
-
+        
+        
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
         
@@ -54,29 +54,17 @@ public final class MovieAPI : NSObject
             //Check for errors
             if error == nil && data != nil {
                 //Try to parse out the data
-               
+                
                 do {
-//                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
-//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-//                    for (key, value) in dictionary {
-//                        print("KEY: \(key) - \(value) ")
-//
-//                    }
-                    
-                   // let response = try! JSONDecoder().decode(Response.self, from: data!)
                     
                     
                     if let response = try? JSONDecoder().decode(Response.self, from: data!)
                     {
                         self.completionHandler?(Item(response: response))
-
+                        
                         print (response)
                     }
-                   // print (response)
                     
-                    
-                    
-
                 }
                 catch {
                     print("Error parsing response data")
@@ -85,16 +73,16 @@ public final class MovieAPI : NSObject
             }
         }
         
-      
+        
         dataTask.resume()
         
-    
-
-         
+        
+        
+        
     }
-     
     
-
+    
+    
 }
 
 
@@ -104,7 +92,7 @@ public struct Response: Decodable
     var results: [results]
     var query: String
     
-   
+    
 }
 
 public struct results: Decodable

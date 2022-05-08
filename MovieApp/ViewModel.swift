@@ -8,8 +8,8 @@
 import Foundation
 
 public class ViewModel: ObservableObject {
-    @Published var id: String = "ID"
     @Published var title: String = "Title"
+    @Published var year: Int = 0
     @Published var Image: String = "--"
     
     
@@ -22,8 +22,8 @@ public class ViewModel: ObservableObject {
     public func refresh(forSearch name: String) {
         
         movieAPI.search(forSearch: name) { movie in DispatchQueue.main.async {
-            self.id = movie.id
             self.title = movie.title
+            self.year = movie.year ?? 00
             self.Image = movie.imageURL
         }}
     }
