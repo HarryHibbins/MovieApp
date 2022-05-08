@@ -14,10 +14,11 @@ public final class MovieAPI : NSObject
     
     private var completionHandler: ((Item) -> Void)?
     
-    public func search(_ completionHandler: @escaping((Item) -> Void)) {
+    public func search(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
+    {
         self.completionHandler = completionHandler
         
-        getMovie(forSearch: "Gameofthr")
+        getMovie(forSearch: name)
         
     }
     
