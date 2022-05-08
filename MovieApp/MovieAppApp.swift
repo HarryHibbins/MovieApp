@@ -12,8 +12,8 @@ struct MovieAppApp: App {
     var body: some Scene {
         WindowGroup {
             let movieAPI = MovieAPI()
-            
-            ContentView()
+            let viewModel = ViewModel(movieAPI: movieAPI)
+            ContentView(viewModel: viewModel)
             
            
         }

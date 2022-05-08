@@ -17,7 +17,6 @@ public final class MovieAPI : NSObject
     public func getMovie(_ completionHandler: @escaping((Item) -> Void)){
 
       
-
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
             "X-RapidAPI-Key": "102e089728msh794c597386f9554p171b9cjsn2700d9dce773"
@@ -49,12 +48,12 @@ public final class MovieAPI : NSObject
                 //Try to parse out the data
                
                 do {
-                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
-                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    for (key, value) in dictionary {
-                        print("KEY: \(key) - \(value) ")
-                        
-                    }
+//                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
+//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+//                    for (key, value) in dictionary {
+//                        print("KEY: \(key) - \(value) ")
+//
+//                    }
                     
                     let response = try! JSONDecoder().decode(Response.self, from: data!)
                     

@@ -10,19 +10,9 @@ import Foundation
 
 struct ContentView: View {
     
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    
-    
     @ObservedObject var viewModel: ViewModel
     
-    static var previews: some View {
-        //ContentView()
+    var body: some View {
         VStack {
             Text(viewModel.title)
                 .padding()
@@ -30,9 +20,14 @@ struct ContentView_Previews: PreviewProvider {
                 .padding()
             Text(viewModel.Image)
                 .padding()
-
         }.onAppear(perform: viewModel.refresh)
     }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewModel: ViewModel(movieAPI: MovieAPI()))
     }
 }
+
 
