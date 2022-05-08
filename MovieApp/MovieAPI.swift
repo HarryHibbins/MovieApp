@@ -12,9 +12,9 @@ import SwiftUI
 public final class MovieAPI : NSObject
 {
     
-    public override init(){
+    public func getMovie(){
 
-        super.init()
+      
 
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
@@ -47,45 +47,18 @@ public final class MovieAPI : NSObject
                 //Try to parse out the data
                
                 do {
+                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
                     let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-
-                    
-                    for item in dictionary {
-                        //print("New Item ------ ", item)
-                    }
-                    
                     for (key, value) in dictionary {
-                        //print("\(key) - \(value) ")
-                       
+                        print("KEY: \(key) - \(value) ")
                         
-              
                     }
-                    /* if (key == "results")
-                     {
-                         
-                         print ("VALUE: ", value)
-      
-                     }
-                     
-                     for (object) in dictionary
-                     {
-                         print ("object",object)
-                     }
-                     
-                     for (title) in dictionary
-                     {
-                         print ("title",title)
-                     }*/
-                     
-                     for (image) in dictionary
-                     {
-                         print ("image",image)
-                     }
-                    //https://developer.apple.com/swift/blog/?id=37 using this for help
-//                    if let nestedDictionary = dictionary["results"] as? [String: Any] {
-//                        // access nested dictionary values by key
-//                        print("Found TITLE")
-//                    }
+                    
+                    let response = try! JSONDecoder().decode(Response.self, from: data!)
+                    
+                    print (response)
+                    
+
                 }
                 catch {
                     print("Error parsing response data")
@@ -96,12 +69,41 @@ public final class MovieAPI : NSObject
         
       
         dataTask.resume()
+        
+    
 
          
     }
      
-   
+    public struct Response: Codable
+    {
+        var results: [results]
+        var query: String
+    }
+    
+    public struct results: Codable
+    {
+        var id: String
+        var image: image?
+        var title: String?
+        var seriesEndYear: Int?
+        var nextEpisode: String?
+        var seriesStartYear: Int?
+        var numberOfEpisodes: Int?
+        var runningTimeInMinutes: Int?
+        
+    }
     
 
+    public struct image: Codable
+    {
+        var height: Int
+        var id: String
+        var url: String
+        var width: Int
+    }
+
 }
+
+
 
