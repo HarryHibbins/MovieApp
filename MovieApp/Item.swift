@@ -24,4 +24,16 @@ public struct Item {
 
         
     }
+    
+    init(response: ResponseAutoComplete) {
+        
+        title = response.d.first?.l ?? ""
+        year = response.d.first?.y
+        
+        imageURL = response.d.first?.i?.imageUrl ?? ""
+
+        
+    }
 }
+
+

@@ -64,7 +64,7 @@ struct ContentView: View {
                 HStack
                 {
                     Button(action : {
-                        //random suggestion
+                        Discard()
                     }, label: {
                         Text("Discard")
                             .padding()
@@ -76,6 +76,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action : {
                         saveToWatchList()
+                        
                     }, label: {
                         Text("Save")
                             .padding()
@@ -91,7 +92,7 @@ struct ContentView: View {
             
             .onAppear()
             {
-                viewModel.refresh(forSearch: "Spidermannowayhome")
+                viewModel.refresh(forSearch: "spidermannowayhome")
             }
             
         }
@@ -110,6 +111,12 @@ struct ContentView: View {
     {
         watchListArray.append(viewModel.title)
         print ("ITEM ADDED TO WATCHLIST: ", viewModel.title)
+    }
+    
+    public func Discard()
+    {
+        //change this string to drop down
+        viewModel.refreshMovieGenre(forSearch: "Adventure")
     }
 }
 

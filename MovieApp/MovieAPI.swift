@@ -14,15 +14,90 @@ public final class MovieAPI : NSObject
     
     private var completionHandler: ((Item) -> Void)?
     
-    public func search(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
+    public func searchItem(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
     {
         self.completionHandler = completionHandler
         
-        getMovie(forSearch: name)
+        getItemBySearch(forSearch: name)
         
     }
     
-    public func getMovie(forSearch search: String){
+    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandler: @escaping((Item) -> Void) )
+    {
+        self.completionHandler = completionHandler
+
+        getPopularMovieByGenre(genre: genre)
+
+    }
+
+
+
+    public func getPopularMovieByGenre(genre genre: String)
+    {
+        let headers = [
+            "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
+            "X-RapidAPI-Key": "102e089728msh794c597386f9554p171b9cjsn2700d9dce773"
+        ]
+
+
+        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=\(genre)&limit=100")
+
+        guard url != nil else {
+            print ("Error creating URL object")
+            return
+        }
+
+        //URL Request
+        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval:  10)
+
+
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+
+        //Get the URLSession
+        let session = URLSession.shared
+
+        //Create the data task
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+
+            //Check for errors
+            if error == nil && data != nil {
+                //Try to parse out the data
+
+                do {
+
+//                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
+//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+//
+//                    
+//                    for item in dictionary {
+//                        print("New Item ------ ", item)
+//                    }
+
+                    if let response = try? JSONDecoder().decode(Response.self, from: data!)
+                    {
+                        self.completionHandler?(Item(response: response))
+
+                        print (response)
+                    }
+
+                }
+                catch {
+                    print("Error parsing response data")
+                }
+
+            }
+        }
+
+
+        dataTask.resume()
+
+
+
+
+
+    }
+    public func getItemBySearch(forSearch search: String){
         
         
         let headers = [
@@ -31,7 +106,9 @@ public final class MovieAPI : NSObject
         ]
         
         
-        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
+       let url = URL(string: "https://online-movie-database.p.rapidapi.com/auto-complete?q=\(search)")
+                     
+            // "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
         
         guard url != nil else {
             print ("Error creating URL object")
@@ -57,12 +134,12 @@ public final class MovieAPI : NSObject
                 
                 do {
                     
-                    
-                    if let response = try? JSONDecoder().decode(Response.self, from: data!)
+                       
+                    if let response = try? JSONDecoder().decode(ResponseAutoComplete.self, from: data!)
                     {
                         self.completionHandler?(Item(response: response))
                         
-                        print (response)
+                        //print (response)
                     }
                     
                 }
@@ -85,7 +162,7 @@ public final class MovieAPI : NSObject
     
 }
 
-
+//-----FOR Find-------
 
 public struct Response: Decodable
 {
@@ -116,3 +193,43 @@ public struct image: Decodable
     var url: String
     var width: Int
 }
+
+//-----For AUTO COMPLETE-----
+public struct ResponseAutoComplete: Decodable
+{
+    var d: [resultsAutoComplete]
+    var q: String
+    
+    
+}
+
+public struct resultsAutoComplete: Decodable
+{
+    var id: String?
+    var i: imageAutoComplete?
+    var l: String?
+    var rank: Int?
+    var s: String?
+    var vt: Int?
+    var y: Int?
+
+    
+}
+
+
+public struct imageAutoComplete: Decodable
+{
+    var height: Int
+    var imageUrl: String
+    var width: Int
+}
+
+
+//-----FOR GENRE------
+public struct ResponseGenre: Decodable
+{
+    var results: String
+    
+}
+
+

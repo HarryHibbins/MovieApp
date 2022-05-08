@@ -21,7 +21,16 @@ public class ViewModel: ObservableObject {
     
     public func refresh(forSearch name: String) {
         
-        movieAPI.search(forSearch: name) { movie in DispatchQueue.main.async {
+        movieAPI.searchItem(forSearch: name) { movie in DispatchQueue.main.async {
+            self.title = movie.title
+            self.year = movie.year ?? 00
+            self.Image = movie.imageURL
+        }}
+    }
+    
+    public func refreshMovieGenre(forSearch genre: String) {
+        
+        movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
             self.title = movie.title
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
