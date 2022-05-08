@@ -20,10 +20,7 @@ public struct Item {
         title = response.results.first?.title ?? ""
         id = response.results.first?.id ?? ""
         imageURL = response.results.first?.image?.url ?? ""
-        
 
-//        temperature = "\(Int(response.main.temp))"
-//        description = response.weather.first?.description ?? ""
-//        iconName = response.weather.first?.iconName ?? ""
+        
     }
 }

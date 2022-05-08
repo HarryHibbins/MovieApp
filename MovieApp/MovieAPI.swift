@@ -12,9 +12,16 @@ import SwiftUI
 public final class MovieAPI : NSObject
 {
     
-    private var completionHandler: ((Response) -> Void)?
+    private var completionHandler: ((Item) -> Void)?
     
-    public func getMovie(_ completionHandler: @escaping((Item) -> Void)){
+    public func search(_ completionHandler: @escaping((Item) -> Void)) {
+        self.completionHandler = completionHandler
+        
+        getMovie(forSearch: "Gameofthr")
+        
+    }
+    
+    public func getMovie(forSearch search: String){
 
       
         let headers = [
@@ -23,7 +30,7 @@ public final class MovieAPI : NSObject
         ]
 
         
-        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/find?q=game%20of%20thr")
+        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
 
         guard url != nil else {
             print ("Error creating URL object")
@@ -55,9 +62,18 @@ public final class MovieAPI : NSObject
 //
 //                    }
                     
-                    let response = try! JSONDecoder().decode(Response.self, from: data!)
+                   // let response = try! JSONDecoder().decode(Response.self, from: data!)
                     
-                    print (response)
+                    
+                    if let response = try? JSONDecoder().decode(Response.self, from: data!)
+                    {
+                        self.completionHandler?(Item(response: response))
+
+                        print (response)
+                    }
+                   // print (response)
+                    
+                    
                     
 
                 }
@@ -82,7 +98,7 @@ public final class MovieAPI : NSObject
 
 
 
-public struct Response: Codable
+public struct Response: Decodable
 {
     var results: [results]
     var query: String
@@ -90,7 +106,7 @@ public struct Response: Codable
    
 }
 
-public struct results: Codable
+public struct results: Decodable
 {
     var id: String
     var image: image?
@@ -104,7 +120,7 @@ public struct results: Codable
 }
 
 
-public struct image: Codable
+public struct image: Decodable
 {
     var height: Int
     var id: String

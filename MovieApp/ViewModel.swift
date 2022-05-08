@@ -7,11 +7,6 @@
 
 import Foundation
 
-import Foundation
-
-private let title = "title"
-
-
 public class ViewModel: ObservableObject {
     @Published var id: String = "ID"
     @Published var title: String = "Title"
@@ -25,7 +20,7 @@ public class ViewModel: ObservableObject {
     }
     
     public func refresh() {
-        movieAPI.getMovie() { movie in DispatchQueue.main.async {
+        movieAPI.search{ movie in DispatchQueue.main.async {
             self.id = movie.id
             self.title = movie.title
             self.Image = movie.imageURL

@@ -18,8 +18,8 @@ struct ContentView: View {
                 .padding()
             Text(viewModel.id)
                 .padding()
-            Text(viewModel.Image)
-                .padding()
+            AsyncImage(url: URL(string: viewModel.Image))
+                
         }.onAppear(perform: viewModel.refresh)
     }
 }
