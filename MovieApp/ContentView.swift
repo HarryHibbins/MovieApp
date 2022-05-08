@@ -11,6 +11,7 @@ import Foundation
 struct ContentView: View {
     
     @ObservedObject var viewModel: ViewModel
+    @State private var searchText = ""
     
     var body: some View {
         VStack {
@@ -18,8 +19,17 @@ struct ContentView: View {
                 .padding()
             Text(viewModel.id)
                 .padding()
+                .searchable(text: $searchText)
             AsyncImage(url: URL(string: viewModel.Image))
-                
+            { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
+          //  .frame(width: 300, height:550 )
+            //.scaledToFill()
+            .scaledToFit()
+            .padding()
         }.onAppear(perform: viewModel.refresh)
     }
 }
