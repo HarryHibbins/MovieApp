@@ -26,10 +26,9 @@ public class ViewModel: ObservableObject {
     
     public func refresh() {
         movieAPI.getMovie() { movie in DispatchQueue.main.async {
-            self.id = movie
-            self.temperature = "\(weather.temperature)°C"
-            self.weatherDescription = weather.description//.capitalized
-            self.weatherIcon = iconImage[weather.iconName] ?? defaultIcon
+            self.id = movie.id
+            self.title = movie.title
+            self.Image = movie.imageURL
         }}
     }
 }

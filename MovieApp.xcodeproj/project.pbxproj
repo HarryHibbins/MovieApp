@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B6B3D9BF2827E67300EE2586 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9BE2827E67300EE2586 /* ViewModel.swift */; };
+		B6B3D9E52827EB5400EE2586 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9E42827EB5400EE2586 /* Item.swift */; };
 		B6DA3ADB282694C200ED0F24 /* MovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */; };
 		B6DA3ADD282694C200ED0F24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3ADC282694C200ED0F24 /* ContentView.swift */; };
 		B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DA3ADE282694C500ED0F24 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		B6B3D9BE2827E67300EE2586 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		B6B3D9E42827EB5400EE2586 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B6DA3AD7282694C200ED0F24 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppApp.swift; sourceTree = "<group>"; };
 		B6DA3ADC282694C200ED0F24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */,
 				B6DA3ADC282694C200ED0F24 /* ContentView.swift */,
 				B6DA3AE8282694FC00ED0F24 /* MovieAPI.swift */,
+				B6B3D9E42827EB5400EE2586 /* Item.swift */,
 				B6B3D9BE2827E67300EE2586 /* ViewModel.swift */,
 				B6DA3ADE282694C500ED0F24 /* Assets.xcassets */,
 				B6DA3AE0282694C500ED0F24 /* Preview Content */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6B3D9E52827EB5400EE2586 /* Item.swift in Sources */,
 				B6DA3AE9282694FC00ED0F24 /* MovieAPI.swift in Sources */,
 				B6DA3ADD282694C200ED0F24 /* ContentView.swift in Sources */,
 				B6B3D9BF2827E67300EE2586 /* ViewModel.swift in Sources */,

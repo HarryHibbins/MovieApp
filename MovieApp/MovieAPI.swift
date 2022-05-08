@@ -12,7 +12,9 @@ import SwiftUI
 public final class MovieAPI : NSObject
 {
     
-    public func getMovie(){
+    private var completionHandler: ((Response) -> Void)?
+    
+    public func getMovie(_ completionHandler: @escaping((Item) -> Void)){
 
       
 
@@ -75,35 +77,38 @@ public final class MovieAPI : NSObject
          
     }
      
-    public struct Response: Codable
-    {
-        var results: [results]
-        var query: String
-    }
     
-    public struct results: Codable
-    {
-        var id: String
-        var image: image?
-        var title: String?
-        var seriesEndYear: Int?
-        var nextEpisode: String?
-        var seriesStartYear: Int?
-        var numberOfEpisodes: Int?
-        var runningTimeInMinutes: Int?
-        
-    }
-    
-
-    public struct image: Codable
-    {
-        var height: Int
-        var id: String
-        var url: String
-        var width: Int
-    }
 
 }
 
 
 
+public struct Response: Codable
+{
+    var results: [results]
+    var query: String
+    
+   
+}
+
+public struct results: Codable
+{
+    var id: String
+    var image: image?
+    var title: String?
+    var seriesEndYear: Int?
+    var nextEpisode: String?
+    var seriesStartYear: Int?
+    var numberOfEpisodes: Int?
+    var runningTimeInMinutes: Int?
+    
+}
+
+
+public struct image: Codable
+{
+    var height: Int
+    var id: String
+    var url: String
+    var width: Int
+}

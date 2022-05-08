@@ -17,8 +17,22 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    
+    @ObservedObject var viewModel: ViewModel
+    
     static var previews: some View {
-        ContentView()
+        //ContentView()
+        VStack {
+            Text(viewModel.title)
+                .padding()
+            Text(viewModel.id)
+                .padding()
+            Text(viewModel.Image)
+                .padding()
+
+        }.onAppear(perform: viewModel.refresh)
+    }
     }
 }
 
