@@ -13,6 +13,8 @@ public final class MovieAPI : NSObject
 {
     
     private var completionHandler: ((Item) -> Void)?
+    private var completionHandlerGenre: ((ItemGenre) -> Void)?
+
     
     public func searchItem(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
     {
@@ -22,9 +24,9 @@ public final class MovieAPI : NSObject
         
     }
     
-    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandler: @escaping((Item) -> Void) )
+    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandlerGenre: @escaping((ItemGenre) -> Void) )
     {
-        self.completionHandler = completionHandler
+        self.completionHandlerGenre = completionHandlerGenre
 
         getPopularMovieByGenre(genre: genre)
 
@@ -36,7 +38,7 @@ public final class MovieAPI : NSObject
     {
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "102e089728msh794c597386f9554p171b9cjsn2700d9dce773"
+            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
         ]
 
 
@@ -57,37 +59,23 @@ public final class MovieAPI : NSObject
         //Get the URLSession
         let session = URLSession.shared
 
-        //Create the data task
-        let dataTask = session.dataTask(with: request) { (data, response, error) in
-
-            //Check for errors
-            if error == nil && data != nil {
-                //Try to parse out the data
-
-                do {
-
-//                    //USE THIS FOR PRINTING ENTIRE DICTIOANRY
-//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-//
-//                    
-//                    for item in dictionary {
-//                        print("New Item ------ ", item)
-//                    }
-
-                    if let response = try? JSONDecoder().decode(Response.self, from: data!)
-                    {
-                        self.completionHandler?(Item(response: response))
-
-                        print (response)
-                    }
-
-                }
-                catch {
-                    print("Error parsing response data")
-                }
-
+        
+        
+        //let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                let httpResponse = response as? HTTPURLResponse
+                print(httpResponse)
+                
+                let response = try! JSONDecoder().decode([ResponseGenre].self, from: data!) as! Any
+                                   
+                                   print (response)
+                
+                                   
             }
-        }
+        })
 
 
         dataTask.resume()
@@ -102,11 +90,14 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "102e089728msh794c597386f9554p171b9cjsn2700d9dce773"
+            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
         ]
+    
+        
+        let stringFormated = search.replacingOccurrences(of: " ", with: "%")
         
         
-       let url = URL(string: "https://online-movie-database.p.rapidapi.com/auto-complete?q=\(search)")
+       let url = URL(string: "https://online-movie-database.p.rapidapi.com/auto-complete?q=\(stringFormated)")
                      
             // "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
         
@@ -228,7 +219,7 @@ public struct imageAutoComplete: Decodable
 //-----FOR GENRE------
 public struct ResponseGenre: Decodable
 {
-    var results: String
+    var results: String?
     
 }
 

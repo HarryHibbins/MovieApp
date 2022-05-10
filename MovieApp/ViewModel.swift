@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 public class ViewModel: ObservableObject {
     @Published var title: String = "Title"
     @Published var year: Int = 0
     @Published var Image: String = "--"
-    
     
     public let movieAPI: MovieAPI
     
@@ -25,6 +25,8 @@ public class ViewModel: ObservableObject {
             self.title = movie.title
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
+            
+        
         }}
     }
     
@@ -32,8 +34,8 @@ public class ViewModel: ObservableObject {
         
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
             self.title = movie.title
-            self.year = movie.year ?? 00
-            self.Image = movie.imageURL
+//            self.year = movie.year ?? 00
+//            self.Image = movie.imageURL
         }}
     }
 }
