@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B67F2804282A9B9F00228F2A /* Watchlist.json in Resources */ = {isa = PBXBuildFile; fileRef = B67F2803282A9B9F00228F2A /* Watchlist.json */; };
 		B6B3D9BF2827E67300EE2586 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9BE2827E67300EE2586 /* ViewModel.swift */; };
 		B6B3D9E52827EB5400EE2586 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9E42827EB5400EE2586 /* Item.swift */; };
 		B6DA3ADB282694C200ED0F24 /* MovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B67F2803282A9B9F00228F2A /* Watchlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Watchlist.json; sourceTree = "<group>"; };
 		B6B3D9BE2827E67300EE2586 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		B6B3D9E42827EB5400EE2586 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B6DA3AD7282694C200ED0F24 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				B6B3D9BE2827E67300EE2586 /* ViewModel.swift */,
 				B6DA3ADE282694C500ED0F24 /* Assets.xcassets */,
 				B6DA3AE0282694C500ED0F24 /* Preview Content */,
+				B67F2803282A9B9F00228F2A /* Watchlist.json */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6DA3AE2282694C500ED0F24 /* Preview Assets.xcassets in Resources */,
+				B67F2804282A9B9F00228F2A /* Watchlist.json in Resources */,
 				B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

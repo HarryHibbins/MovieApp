@@ -60,8 +60,9 @@ public struct ItemGenre {
 
     init(response: ResponseGenre) {
 
-        title = (response.results)!
+        //title = (response.results)!
 
+        title = response.results[0]
     }
 }
 
