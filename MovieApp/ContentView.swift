@@ -18,6 +18,7 @@ struct ContentView: View {
     
     @State private var WatchlistViewShowing = false;
     @State private var DiscoverViewShowing = true;
+    @State private var InfoViewShowing = false;
     
     var body: some View
     {
@@ -51,7 +52,9 @@ struct ContentView: View {
                     Spacer()
 
                     Button(action : {
+                        loadInfoView()
                         getDetails()
+
                     }, label: {
                         AsyncImage(url: URL(string: viewModel.Image))
                         { image in
@@ -128,11 +131,11 @@ struct ContentView: View {
                 
                 
                 
-                .onAppear()
-                {
-                    viewModel.refresh(forSearch: "spidermannowayhome")
-                }
-                
+//                .onAppear()
+//                {
+//                    viewModel.refresh(forSearch: "spidermannowayhome")
+//                }
+//
             }
         }
         
@@ -173,6 +176,55 @@ struct ContentView: View {
             }
         }
         
+        if InfoViewShowing
+        {
+            VStack
+            {
+                                 
+                AsyncImage(url: URL(string: viewModel.Image))
+                { image in
+                    image.resizable()
+                } placeholder:
+                {
+                    ProgressView()
+                }
+                .scaledToFit()
+                .padding()
+                
+                Text(viewModel.title)
+                Text(viewModel.releaseDate!)
+                Text(viewModel.author)
+                Text(viewModel.summary)
+
+               
+                HStack
+                {
+                    Button(action : {
+                        loadWatchlistView()
+                        
+                    }, label: {
+                        Text("Watchlist")
+                            .padding()
+                        //   .frame(maxWidth: .infinity)
+                            .background(Color.green.cornerRadius(10))
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    })
+                    Button(action : {
+                        loadDiscoverView()
+                    }, label: {
+                        Text("Discover")
+                            .padding()
+                        //   .frame(maxWidth: .infinity)
+                            .background(Color.green.cornerRadius(10))
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    })
+                }
+                
+            }
+        }
+            
         
 
     }
@@ -182,11 +234,13 @@ struct ContentView: View {
     public func searchItem()
     {
         viewModel.refresh(forSearch: searchText)
+        
     }
     
     public func getDetails()
     {
-        viewModel.refreshItemOverview(forSearch: searchText)
+        viewModel.refreshItemOverview(forSearch: viewModel.id)
+        print ("Searching for:" , viewModel.id)
         
         
     }
@@ -255,12 +309,21 @@ struct ContentView: View {
         
         DiscoverViewShowing = false
         WatchlistViewShowing = true
+        InfoViewShowing = false
     }
     
     public func loadDiscoverView()
     {
         DiscoverViewShowing = true
         WatchlistViewShowing = false
+        InfoViewShowing = false
+    }
+    
+    public func loadInfoView()
+    {
+        DiscoverViewShowing = false
+        WatchlistViewShowing = false
+        InfoViewShowing = true
     }
 }
 

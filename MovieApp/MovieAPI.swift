@@ -35,11 +35,11 @@ public final class MovieAPI : NSObject
         
     }
     
-    public func itemOverview(forSearch genre: String, _ completionHandlerOverview: @escaping((Item) -> Void) )
+    public func itemOverview(forSearch ttValue: String, _ completionHandlerOverview: @escaping((Item) -> Void) )
     {
         self.completionHandlerOverview = completionHandlerOverview
         
-        getItemOverview(forSearch: genre)
+        getItemOverview(forSearch: ttValue)
         
     }
     
@@ -179,7 +179,7 @@ public final class MovieAPI : NSObject
     
     
     
-    public func getItemOverview(forSearch search: String){
+    public func getItemOverview(forSearch ttValue: String){
         
         
         let headers = [
@@ -190,7 +190,7 @@ public final class MovieAPI : NSObject
         
             
         
-        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/get-overview-details?tconst=tt0944947&currentCountry=US")
+        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/get-overview-details?tconst=\(ttValue)&currentCountry=US")
         
         // "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
         
@@ -217,18 +217,17 @@ public final class MovieAPI : NSObject
                 //Try to parse out the data
                 
                 do {
-                    
-                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-                    
-                    print (dictionary)
-                    
-                
-                                        
-                    
+//
+//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+//
+//                    print (dictionary)
+//
+//
+//                                                         
                     
                     let response = try! JSONDecoder().decode(ResponseOverview.self, from: data!)
                    
-                    self.completionHandler?(Item(responseOverview: response))
+                    self.completionHandlerOverview?(Item(responseOverview: response))
 
                     print (response)
                     
@@ -384,7 +383,7 @@ public struct genres: Decodable
 
 public struct plotSummary: Decodable
 {
-    var author: String
+    var author: String?
     var text: String
 }
 

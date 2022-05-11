@@ -11,9 +11,12 @@ import SwiftUI
 
 public struct Item {
     let title: String
+    let id: String
     let year: Int?
     let imageURL: String
     let releaseDate: String?
+    let author: String?
+    let description: String?
     
 
 
@@ -24,7 +27,9 @@ public struct Item {
         year = response.results.first?.seriesStartYear
         releaseDate = ""
         imageURL = response.results.first?.image?.url ?? ""
-
+        id = ""
+        author = ""
+        description = ""
         
     }
     
@@ -34,7 +39,10 @@ public struct Item {
         year = response.d.first?.y
         releaseDate = ""
         imageURL = response.d.first?.i?.imageUrl ?? ""
+        id = response.d.first?.id ?? ""
         
+        author = ""
+        description = ""
         for index in 0..<response.d.count
         {
             let titles = response.d[index].l
@@ -54,18 +62,10 @@ public struct Item {
         releaseDate = responseOverview.releaseDate
         
         imageURL = responseOverview.title?.image?.url ?? ""
-                
-        //        title = response.results.first?.title ?? ""
-        //
-        //
-        //        var id: String
-        //        var title: title
-        //        var query: String
-        //        var certificates: String
-        //        var ratings: ratings
-        //        var genres: genres
-        //        var releaseDate : String
-        //        var plotSummary: plotSummary
+        id = responseOverview.title?.id ?? ""
+        author = responseOverview.plotSummary?.author
+        description = responseOverview.plotSummary?.text
+        
                 
             }
     

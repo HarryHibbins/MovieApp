@@ -13,8 +13,10 @@ public class ViewModel: ObservableObject {
     @Published var id: String = ""
     @Published var year: Int = 0
     @Published var releaseDate: String? = ""
-
     @Published var Image: String = "--"
+    
+    @Published var author: String = "--"
+    @Published var summary: String = "--"
     
     public let movieAPI: MovieAPI
     
@@ -28,6 +30,8 @@ public class ViewModel: ObservableObject {
             self.title = movie.title
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
+            self.id = movie.id
+            
             
         
         }}
@@ -49,6 +53,8 @@ public class ViewModel: ObservableObject {
             self.title = movie.title
             self.releaseDate = movie.releaseDate
             self.Image = movie.imageURL
+            self.author = movie.author ?? ""
+            self.summary = movie.description ?? ""
         }}
     }
     
