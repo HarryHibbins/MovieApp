@@ -14,6 +14,7 @@ public final class MovieAPI : NSObject
     
     private var completionHandler: ((Item) -> Void)?
     private var completionHandlerGenre: ((ItemGenre) -> Void)?
+    private var completionHandlerOverview: ((Item) -> Void)?
     
     //@Published var item: ResponseGenre =
     
@@ -31,6 +32,14 @@ public final class MovieAPI : NSObject
         self.completionHandlerGenre = completionHandlerGenre
         
         getPopularMovieByGenre(genre: genre)
+        
+    }
+    
+    public func itemOverview(forSearch genre: String, _ completionHandlerOverview: @escaping((Item) -> Void) )
+    {
+        self.completionHandlerOverview = completionHandlerOverview
+        
+        getItemOverview(forSearch: genre)
         
     }
     
@@ -146,9 +155,9 @@ public final class MovieAPI : NSObject
                     
                     
                     if let response = try? JSONDecoder().decode(ResponseAutoComplete.self, from: data!)
-                                       {
-                                           self.completionHandler?(Item(response: response))
-                        
+                   {
+                       self.completionHandler?(Item(response: response))
+    
                         //print (response)
                     }
                     
@@ -158,6 +167,80 @@ public final class MovieAPI : NSObject
                 }
                 
             }
+        }
+        
+        
+        dataTask.resume()
+        
+        
+        
+        
+    }
+    
+    
+    
+    public func getItemOverview(forSearch search: String){
+        
+        
+        let headers = [
+            "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
+            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
+        ]
+        
+        
+            
+        
+        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/get-overview-details?tconst=tt0944947&currentCountry=US")
+        
+        // "https://online-movie-database.p.rapidapi.com/title/find?q=\(search)")
+        
+        guard url != nil else {
+            print ("Error creating URL object")
+            return
+        }
+        
+        //URL Request
+        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval:  10)
+        
+        
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        //Get the URLSession
+        let session = URLSession.shared
+        
+        //Create the data task
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+            
+            //Check for errors
+            if error == nil && data != nil {
+                //Try to parse out the data
+                
+                do {
+                    
+                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+                    
+                    print (dictionary)
+                    
+                
+                                        
+                    
+                    
+                    let response = try! JSONDecoder().decode(ResponseOverview.self, from: data!)
+                   
+                    self.completionHandler?(Item(responseOverview: response))
+
+                    print (response)
+                    
+                    
+                }
+                catch {
+                    print("Error parsing response data")
+                }
+            }
+            
+              
+            
         }
         
         
@@ -242,6 +325,70 @@ public final class MovieAPI : NSObject
         var results: [String]
         
     }
+
+
+
+//-----FOR OverView Details-------
+
+public struct ResponseOverview: Decodable
+{
+    var id: String?
+    var genres: genres?
+    var title: title?
+    var query: String?
+    //var certificates: String?
+    var ratings: ratings?
+ 
+    var releaseDate : String?
+    var plotSummary: plotSummary?
+    
+    
+    
+}
+
+public struct title: Decodable
+{
+    var id: String?
+    var year: Int?
+    var image: imageOverview?
+    var title: String?
+    var seriesEndYear: Int?
+    var nextEpisode: String?
+    var seriesStartYear: Int?
+    var numberOfEpisodes: Int?
+    var runningTimeInMinutes: Int?
+    var titleType: String?
+    
+    
+}
+
+public struct imageOverview: Decodable
+{
+    var height: Int
+    var url: String
+    var width: Int
+}
+
+public struct ratings: Decodable
+{
+    var canRate: Bool
+    var rating: Double
+    var ratingCount: Int
+}
+
+public struct genres: Decodable
+{
+    
+   
+}
+
+public struct plotSummary: Decodable
+{
+    var author: String
+    var text: String
+}
+
+
     
     
     

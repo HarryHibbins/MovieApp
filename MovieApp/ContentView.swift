@@ -49,15 +49,21 @@ struct ContentView: View {
                         
                     }.padding()
                     Spacer()
-                    AsyncImage(url: URL(string: viewModel.Image))
-                    { image in
-                        image.resizable()
-                    } placeholder:
-                    {
-                        ProgressView()
-                    }
-                    .scaledToFit()
-                    .padding()
+
+                    Button(action : {
+                        getDetails()
+                    }, label: {
+                        AsyncImage(url: URL(string: viewModel.Image))
+                        { image in
+                            image.resizable()
+                        } placeholder:
+                        {
+                            ProgressView()
+                        }
+                        .scaledToFit()
+                        .padding()
+                    })
+          
                     
                     
                     HStack
@@ -176,6 +182,13 @@ struct ContentView: View {
     public func searchItem()
     {
         viewModel.refresh(forSearch: searchText)
+    }
+    
+    public func getDetails()
+    {
+        viewModel.refreshItemOverview(forSearch: searchText)
+        
+        
     }
     
     public func saveToWatchList()

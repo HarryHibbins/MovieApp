@@ -13,6 +13,7 @@ public struct Item {
     let title: String
     let year: Int?
     let imageURL: String
+    let releaseDate: String?
     
 
 
@@ -21,7 +22,7 @@ public struct Item {
         
         title = response.results.first?.title ?? ""
         year = response.results.first?.seriesStartYear
-        
+        releaseDate = ""
         imageURL = response.results.first?.image?.url ?? ""
 
         
@@ -31,7 +32,7 @@ public struct Item {
         
         title = response.d.first?.l ?? ""
         year = response.d.first?.y
-        
+        releaseDate = ""
         imageURL = response.d.first?.i?.imageUrl ?? ""
         
         for index in 0..<response.d.count
@@ -42,13 +43,38 @@ public struct Item {
             print (titles, years)
         }
         
+    }
+            
+            
+    init(responseOverview: ResponseOverview) {
+                
+        title = responseOverview.title?.title ?? ""
+        year = 0
+        
+        releaseDate = responseOverview.releaseDate
+        
+        imageURL = responseOverview.title?.image?.url ?? ""
+                
+        //        title = response.results.first?.title ?? ""
+        //
+        //
+        //        var id: String
+        //        var title: title
+        //        var query: String
+        //        var certificates: String
+        //        var ratings: ratings
+        //        var genres: genres
+        //        var releaseDate : String
+        //        var plotSummary: plotSummary
+                
+            }
     
         
         
         
 
         
-    }
+
 
   
 }
@@ -65,4 +91,17 @@ public struct ItemGenre {
         title = response.results[0]
     }
 }
+
+
+
+    
+
+
+    
+    
+    
+    
+
+
+
 

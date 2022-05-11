@@ -10,7 +10,10 @@ import SwiftUI
 
 public class ViewModel: ObservableObject {
     @Published var title: String = "Title"
+    @Published var id: String = ""
     @Published var year: Int = 0
+    @Published var releaseDate: String? = ""
+
     @Published var Image: String = "--"
     
     public let movieAPI: MovieAPI
@@ -38,4 +41,15 @@ public class ViewModel: ObservableObject {
 //            self.Image = movie.imageURL
         }}
     }
+    
+    
+    public func refreshItemOverview(forSearch name: String) {
+
+        movieAPI.itemOverview(forSearch: name) { movie in DispatchQueue.main.async {
+            self.title = movie.title
+            self.releaseDate = movie.releaseDate
+            self.Image = movie.imageURL
+        }}
+    }
+    
 }
