@@ -17,6 +17,7 @@ public struct Item {
     let releaseDate: String?
     let author: String?
     let description: String?
+    let runningTime: Int?
     
 
 
@@ -30,6 +31,7 @@ public struct Item {
         id = ""
         author = ""
         description = ""
+        runningTime = 0
         
     }
     
@@ -40,7 +42,8 @@ public struct Item {
         releaseDate = ""
         imageURL = response.d.first?.i?.imageUrl ?? ""
         id = response.d.first?.id ?? ""
-        
+        runningTime = 0
+
         author = ""
         description = ""
         for index in 0..<response.d.count
@@ -65,6 +68,7 @@ public struct Item {
         id = responseOverview.title?.id ?? ""
         author = responseOverview.plotSummary?.author
         description = responseOverview.plotSummary?.text
+        runningTime = responseOverview.title?.runningTimeInMinutes
         
                 
             }

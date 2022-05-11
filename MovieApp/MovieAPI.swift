@@ -49,7 +49,7 @@ public final class MovieAPI : NSObject
     {
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
+            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
         ]
         
         
@@ -118,7 +118,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
+            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
         ]
         
         
@@ -184,7 +184,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "8fea44c8demsh89f1b4fa02718e9p1f604cjsnbe769d1e747f"
+            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
         ]
         
         

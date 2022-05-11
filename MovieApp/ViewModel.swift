@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 public class ViewModel: ObservableObject {
-    @Published var title: String = "Title"
+    @Published var title: String = ""
     @Published var id: String = ""
     @Published var year: Int = 0
     @Published var releaseDate: String? = ""
-    @Published var Image: String = "--"
-    
-    @Published var author: String = "--"
-    @Published var summary: String = "--"
+    @Published var Image: String = "-"
+    @Published var runningTime: String? = ""
+    @Published var author: String = ""
+    @Published var summary: String = "-"
     
     public let movieAPI: MovieAPI
     
@@ -51,7 +51,10 @@ public class ViewModel: ObservableObject {
 
         movieAPI.itemOverview(forSearch: name) { movie in DispatchQueue.main.async {
             self.title = movie.title
-            self.releaseDate = movie.releaseDate
+            self.releaseDate = "Release date: " + movie.releaseDate!
+            
+            
+            self.runningTime = "Running time: " + String(movie.runningTime!) + "m"
             self.Image = movie.imageURL
             self.author = movie.author ?? ""
             self.summary = movie.description ?? ""
