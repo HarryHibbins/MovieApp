@@ -73,6 +73,34 @@ public struct Item {
                 
             }
     
+    
+        
+    init(responseGenre: ResponseGenre) {
+        print ("RESPONSE GENRE")
+            
+        
+        title = ""
+        year = 0
+        releaseDate = ""
+        imageURL = ""
+        id = ""
+        author = ""
+        description = ""
+        runningTime = 0
+//    title = responseOverview.title?.title ?? ""
+//    year = 0
+//
+//    releaseDate = responseOverview.releaseDate
+//
+//    imageURL = responseOverview.title?.image?.url ?? ""
+//    id = responseOverview.title?.id ?? ""
+//    author = responseOverview.plotSummary?.author
+//    description = responseOverview.plotSummary?.text
+//    runningTime = responseOverview.title?.runningTimeInMinutes
+
+            
+        }
+    
         
         
         
@@ -83,18 +111,18 @@ public struct Item {
   
 }
 
-public struct ItemGenre {
-    let title: String
-    
+//public struct ItemGenre {
+//    let title: String
+//
+//
+//
+//    init(response: ResponseGenre) {
+//
+//        //title = (response.results)!
+//
+//        //title = response.results[0]
+//    }
 
-
-    init(response: ResponseGenre) {
-
-        //title = (response.results)!
-
-        title = response.results[0]
-    }
-}
 
 
 

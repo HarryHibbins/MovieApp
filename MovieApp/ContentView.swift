@@ -25,6 +25,7 @@ struct ContentView: View {
     
     var body: some View
     {
+            
         ZStack
         {
             Color("Background").ignoresSafeArea()
@@ -143,13 +144,13 @@ struct ContentView: View {
                     
                 }
                 
+                .onAppear()
+                {
+                    //viewModel.refresh(forSearch: "spidermannowayhome"
+                    //viewModel.movieAPI.genreResults
+                    viewModel.refreshMovieGenre(forSearch: "Adventure")
+                }
                 
-                
-                //                .onAppear()
-                //                {
-                //                    viewModel.refresh(forSearch: "spidermannowayhome")
-                //                }
-                //
                 
             }
             
@@ -384,6 +385,13 @@ struct ContentView: View {
         
     }
     
+    public func Discard()
+    {
+        //change this string to drop down
+        viewModel.refreshMovieGenre(forSearch: "Adventure")
+        //viewModel.refresh(forSearch: viewModel.movieAPI.genreResults[0])
+    }
+    
     public func saveToWatchList()
     {
         
@@ -437,12 +445,7 @@ struct ContentView: View {
     }
     
     
-    //NOT WORKING - FIX GENRE
-    public func Discard()
-    {
-        //change this string to drop down
-        viewModel.refreshMovieGenre(forSearch: "Adventure")
-    }
+ 
     
     
     public func loadWatchlistView()

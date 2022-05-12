@@ -13,10 +13,11 @@ public final class MovieAPI : NSObject
 {
     
     private var completionHandler: ((Item) -> Void)?
-    private var completionHandlerGenre: ((ItemGenre) -> Void)?
+    private var completionHandlerGenre: ((Item) -> Void)?
     private var completionHandlerOverview: ((Item) -> Void)?
     
     //@Published var item: ResponseGenre =
+    @Published var genreResults: [String] = []
     
     
     public func searchItem(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
@@ -27,7 +28,7 @@ public final class MovieAPI : NSObject
         
     }
     
-    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandlerGenre: @escaping((ItemGenre) -> Void) )
+    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandlerGenre: @escaping((Item) -> Void) )
     {
         self.completionHandlerGenre = completionHandlerGenre
         
@@ -53,7 +54,10 @@ public final class MovieAPI : NSObject
         ]
         
         
+        
         let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=\(genre)&limit=100")
+        
+    
         
         guard url != nil else {
             print ("Error creating URL object")
@@ -70,44 +74,59 @@ public final class MovieAPI : NSObject
         //Get the URLSession
         let session = URLSession.shared
         
-        
-        
         //Create the data task
-        let dataTask = session.dataTask(with: request) {[weak self ]data, response, error in
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
             
             //Check for errors
             if error == nil && data != nil {
                 //Try to parse out the data
                 
                 do {
+
+    
+                    let httpResponse = response as? HTTPURLResponse
+                            print(httpResponse)
+
                     
                     
-                                        
-                    if let response = try? JSONDecoder().decode(ResponseGenre.self, from: data!)
-                                       {
-                                           self?.completionHandlerGenre?(ItemGenre(response: response))
+                    let dictionary = try! JSONSerialization.jsonObject(with: data!)
+                    
+                    print (dictionary)
+                    
+                    
+                    
+                    
+                    var jsonString = ""
+                    //self.genreResults = dictionary as! [String]
+                    
+                    
+                    for (key) in dictionary as! [String]{
+                        print("\(key)  ")
+                        jsonString += key
                         
-                        print (response)
+                        print ("RESULTS: " , key)
+                        
                     }
                     
-//                    
-//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-//                    print (dictionary)
-//                    let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
-//                    print (response)
-////                    DispatchQueue.main.async {
-////                        self?.item = response
-////                    }
+                    for result in dictionary as! [String]
+                    {
+                        self.genreResults.append(result)
+                        print ("append" , result)
+                    }
+                    
                     
                 }
                 catch {
                     print("Error parsing response data")
                 }
-                
             }
+            
+              
+            
         }
-        dataTask.resume()
         
+        
+        dataTask.resume()
         
     }
     
@@ -217,13 +236,7 @@ public final class MovieAPI : NSObject
                 //Try to parse out the data
                 
                 do {
-//
-//                    let dictionary = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
-//
-//                    print (dictionary)
-//
-//
-//                                                         
+
                     
                     let response = try! JSONDecoder().decode(ResponseOverview.self, from: data!)
                    
@@ -321,7 +334,15 @@ public final class MovieAPI : NSObject
     //-----FOR GENRE------
     public struct ResponseGenre: Decodable
     {
-        var results: [String]
+        let firstString: String
+    //    let StringArray: [String]
+        
+//        public init(from decoder: Decoder) throws {
+//                var container = try decoder.unkeyedContainer()
+//                firstString = try container.decode(String.self)
+//                StringArray = try container.decode([String].self)
+//            }
+        
         
     }
 
