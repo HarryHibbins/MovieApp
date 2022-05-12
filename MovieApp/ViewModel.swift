@@ -41,7 +41,7 @@ public class ViewModel: ObservableObject {
         
   
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
-            self.id = movie.id
+            self.title = movie.id
 //            self.year = movie.year ?? 00
 //            self.Image = movie.imageURL
         }}

@@ -114,6 +114,19 @@ public final class MovieAPI : NSObject
                         print ("append" , result)
                     }
                     
+//                 
+//                    let jsonData = try! JSONEncoder().encode(jsonString)
+//                    let jsonString_ = String(data: jsonData, encoding: .utf8)!
+//
+//                    print( "JSON DATA" , jsonString_
+//                    
+//                    )
+//                    //var result = ResponseGenre.init(result: jsonString)
+//                    
+//                    let response = try! JSONDecoder().decode([ResponseGenre].self, from: jsonData)
+                   
+                  //  self.completionHandlerGenre?(Item(responseGenre: response))
+
                     
                 }
                 catch {
@@ -334,7 +347,7 @@ public final class MovieAPI : NSObject
     //-----FOR GENRE------
     public struct ResponseGenre: Decodable
     {
-        let firstString: String
+        let result: String
     //    let StringArray: [String]
         
 //        public init(from decoder: Decoder) throws {
