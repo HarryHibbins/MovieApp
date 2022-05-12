@@ -15,6 +15,7 @@ struct MovieAppApp: App {
             let viewModel = ViewModel(movieAPI: movieAPI)
             ContentView(viewModel: viewModel)
             
+            
            
         }
     }

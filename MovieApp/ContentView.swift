@@ -12,9 +12,12 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ViewModel
     @State private var searchText = ""
-    @State public var watchListTitles: [String] = []
-    @State public var watchListImages: [String] = []
-    @State public var watchListYears: [Int] = []
+//    @State public var watchListTitles: [String] = []
+//    @State public var watchListImages: [String] = []
+//    @State public var watchListYears: [Int] = []
+    @State public var watchListItems: [WatchListItem] = []
+    @State public var cameFromWatchlist = false
+    
     
     @State private var WatchlistViewShowing = false;
     @State private var DiscoverViewShowing = true;
@@ -22,271 +25,342 @@ struct ContentView: View {
     
     var body: some View
     {
-        
-        if DiscoverViewShowing
+        ZStack
         {
+            Color("Background").ignoresSafeArea()
+                //.ignoresSafeArea()
             
-            VStack
+            
+            if DiscoverViewShowing
             {
-                HStack
+                
+                VStack
                 {
-                    TextField ("Search for...", text: $searchText)
-                        .padding()
-                        .background(Color.gray.opacity(0.3).cornerRadius(10))
-                        .foregroundColor(.red)
-                        .font(.headline)
-                    
-                    Button(action : {
-                        searchItem()
-                    }, label: {
-                        Text("Submit")
+                    HStack
+                    {
+                        TextField ("Search for...", text: $searchText)
                             .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.blue.cornerRadius(10))
+                            .background(Color("SearchBarBackground").cornerRadius(10))
                             .foregroundColor(.white)
                             .font(.headline)
+                            
+                            
+                        
+                        Button(action : {
+                            searchItem()
+                        }, label: {
+                            Text("Submit")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.blue.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        
+                    }.padding()
+                    Spacer()
+                    
+                    Button(action : {
+                        loadInfoView()
+                        getDetails(itemToSearchFor: viewModel.id)
+                        
+                    }, label: {
+                        AsyncImage(url: URL(string: viewModel.Image))
+                        { image in
+                            image.resizable()
+                        } placeholder:
+                        {
+                            ProgressView()
+                        }
+                        .scaledToFit()
+                        .padding()
                     })
                     
-                }.padding()
-                Spacer()
-                
-                Button(action : {
-                    loadInfoView()
-                    getDetails()
                     
-                }, label: {
+                    
+                    HStack
+                    {
+                        Text(viewModel.title).font(.title)
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                        if viewModel.year != 0
+                        {
+                            Text(String(viewModel.year)).font(.title3)
+                                .foregroundColor(.white)
+                        }
+                      
+                    }.padding()
+                    HStack
+                    {
+                        Button(action : {
+                            Discard()
+                        }, label: {
+                            Text("Discard")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.red.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        Spacer()
+                        Button(action : {
+                            saveToWatchList()
+                            
+                        }, label: {
+                            Text("Save")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                    }.padding()
+                    
+                    HStack {
+                        Button(action : {
+                            loadWatchlistView()
+                            
+                        }, label: {
+                            Text("Watchlist")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        Button(action : {
+                            loadDiscoverView()
+                        }, label: {
+                            Text("Discover")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                    }
+                    
+                }
+                
+                
+                
+                //                .onAppear()
+                //                {
+                //                    viewModel.refresh(forSearch: "spidermannowayhome")
+                //                }
+                //
+                
+            }
+            
+            if WatchlistViewShowing
+            {
+                VStack
+                {
+                    Text("Your Watchlist").font(.largeTitle)
+                        .foregroundColor(.white)
+                    
+                    
+                    //List(watchListTitles, id:\.self){Text($0)}
+                    
+                    ScrollView
+                    {
+                        ForEach (watchListItems, id: \.self) { item in
+                            
+                            HStack
+                            {
+                                Text(item.title).font(.title)
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                            HStack
+                            {
+                                Text(String(item.year)).font(.title3)
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                            
+                            Button(action : {
+                                loadInfoView()
+                                getDetails(itemToSearchFor: item.id)
+                                cameFromWatchlist = true
+                                
+                                
+                            }, label: {
+                            AsyncImage(url: URL(string:   item.url))
+                                { image in
+                                    image.resizable()
+                                } placeholder:
+                                {
+                                    ProgressView()
+                                }
+                                .scaledToFit()
+                                //.padding()
+                            })
+                            
+                                                    
+                          
+                            
+                        }
+                    }.padding()
+                  
+                    
+        
+                    
+                    HStack
+                    {
+                        Button(action : {
+                            loadWatchlistView()
+                            
+                        }, label: {
+                            Text("Watchlist")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        Button(action : {
+                            loadDiscoverView()
+                        }, label: {
+                            Text("Discover")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                    }
+                    
+                }
+            }
+            
+            if InfoViewShowing
+            {
+                VStack
+                {
+                    
+                    HStack
+                    {
+                        Button(action : {
+                            if !cameFromWatchlist
+                            {
+                                loadDiscoverView()
+                            }
+                            else {
+                                loadWatchlistView()
+                                cameFromWatchlist = false
+                            }
+                            
+                            
+                        }, label: {
+                            Text("Back")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        Spacer()
+                        
+                        Button(action : {
+                            saveToWatchList()
+                            
+                        }, label: {
+                            Text("Save")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                    }
+                    
+                    
+                    HStack
+                    {
+                        Text(viewModel.title).font(.title)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    
+                    
+                    HStack
+                    {
+                        Text(viewModel.releaseDate!).font(.title2)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    HStack
+                    {
+                        Text(viewModel.runningTime!).font(.title2)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    
+                    
+                    
+                    
                     AsyncImage(url: URL(string: viewModel.Image))
                     { image in
                         image.resizable()
+                        
+                            .frame(width: 300, height: 400)
+                            .scaledToFit()
+                        
+                        //.padding()
                     } placeholder:
                     {
                         ProgressView()
                     }
-                    .scaledToFit()
-                    .padding()
-                })
-                
-                
-                
-                HStack
-                {
-                    Text(viewModel.title).font(.title)
                     
-                    Spacer()
-                    if viewModel.year != 0
+                    
+                    
+                    
+                    
+                    
+                    //Text(viewModel.author)
+                    
+                    ScrollView
                     {
-                        Text(String(viewModel.year)).font(.title3)
+                        Text(viewModel.summary)
+                            .foregroundColor(.white)
                     }
-                  
+                    
+                    
+                    
+                    HStack
+                    {
+                        Button(action : {
+                            loadWatchlistView()
+                            
+                        }, label: {
+                            Text("Watchlist")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                        Button(action : {
+                            loadDiscoverView()
+                        }, label: {
+                            Text("Discover")
+                                .padding()
+                            //   .frame(maxWidth: .infinity)
+                                .background(Color.green.cornerRadius(10))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                        })
+                    }
+                    
                 }.padding()
-                HStack
-                {
-                    Button(action : {
-                        Discard()
-                    }, label: {
-                        Text("Discard")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.red.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                    Spacer()
-                    Button(action : {
-                        saveToWatchList()
-                        
-                    }, label: {
-                        Text("Save")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                }.padding()
-                
-                HStack {
-                    Button(action : {
-                        loadWatchlistView()
-                        
-                    }, label: {
-                        Text("Watchlist")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                    Button(action : {
-                        loadDiscoverView()
-                    }, label: {
-                        Text("Discover")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                }
-                
+                 
             }
             
             
             
-            //                .onAppear()
-            //                {
-            //                    viewModel.refresh(forSearch: "spidermannowayhome")
-            //                }
-            //
             
-        }
-        
-        if WatchlistViewShowing
-        {
-            VStack
-            {
-                Text("Your Watchlist")
-                
-                
-                List(watchListTitles, id:\.self){Text($0)}
-                
-                HStack
-                {
-                    Button(action : {
-                        loadWatchlistView()
-                        
-                    }, label: {
-                        Text("Watchlist")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                    Button(action : {
-                        loadDiscoverView()
-                    }, label: {
-                        Text("Discover")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                }
-                
-            }
-        }
-        
-        if InfoViewShowing
-        {
-            VStack
-            {
-                
-                HStack
-                {
-                    Button(action : {
-                        loadDiscoverView()
-                        
-                    }, label: {
-                        Text("Back")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                    Spacer()
-                    
-                    Button(action : {
-                        saveToWatchList()
-                        
-                    }, label: {
-                        Text("Save")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                }
-                
-                
-                HStack
-                {
-                    Text(viewModel.title).font(.title)
-                    Spacer()
-                }
-                
-                
-                HStack
-                {
-                    Text(viewModel.releaseDate!).font(.title2)
-                    Spacer()
-                }
-                HStack
-                {
-                    Text(viewModel.runningTime!).font(.title2)
-                    Spacer()
-                }
-                
-                
-                
-                
-                AsyncImage(url: URL(string: viewModel.Image))
-                { image in
-                    image.resizable()
-                    
-                        .frame(width: 300, height: 400)
-                        .scaledToFit()
-                    
-                    //.padding()
-                } placeholder:
-                {
-                    ProgressView()
-                }
-                
-                
-                
-                
-                
-                
-                //Text(viewModel.author)
-                
-                ScrollView
-                {
-                    Text(viewModel.summary)
-                }
-                
-                
-                
-                HStack
-                {
-                    Button(action : {
-                        loadWatchlistView()
-                        
-                    }, label: {
-                        Text("Watchlist")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                    Button(action : {
-                        loadDiscoverView()
-                    }, label: {
-                        Text("Discover")
-                            .padding()
-                        //   .frame(maxWidth: .infinity)
-                            .background(Color.green.cornerRadius(10))
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    })
-                }
-                
-            }.padding()
-             
         }
         
         
@@ -301,10 +375,11 @@ struct ContentView: View {
         
     }
     
-    public func getDetails()
+    public func getDetails(itemToSearchFor: String)
     {
-        viewModel.refreshItemOverview(forSearch: viewModel.id)
-        print ("Searching for:" , viewModel.id)
+        
+        viewModel.refreshItemOverview(forSearch: itemToSearchFor)
+        print ("Searching for:" , itemToSearchFor)
         
         
     }
@@ -312,11 +387,13 @@ struct ContentView: View {
     public func saveToWatchList()
     {
         
-        if !watchListTitles.contains(viewModel.title) {
-            watchListTitles.append(viewModel.title)
-            watchListImages.append(viewModel.Image)
-            watchListYears.append(viewModel.year)
+        if !watchListItems.contains(where: {$0.id == viewModel.id}) {
+       
             print ("ITEM ADDED TO WATCHLIST: ", viewModel.title)
+            
+            var item: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
+            
+            watchListItems.append(item)
         } else {
             print("Already in watchlist")
         }
@@ -374,6 +451,8 @@ struct ContentView: View {
         DiscoverViewShowing = false
         WatchlistViewShowing = true
         InfoViewShowing = false
+        
+       // WatchListView()
     }
     
     public func loadDiscoverView()
@@ -389,6 +468,15 @@ struct ContentView: View {
         WatchlistViewShowing = false
         InfoViewShowing = true
     }
+    
+    public struct WatchListItem: Hashable
+    {
+        var title: String
+        var id: String
+        var url: String
+        var year: Int
+    }
+
 }
 
 
