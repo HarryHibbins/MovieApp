@@ -25,8 +25,10 @@ public class ViewModel: ObservableObject {
     }
     
     public func refresh(forSearch name: String) {
+        print("searching for: ", name)
         
         movieAPI.searchItem(forSearch: name) { movie in DispatchQueue.main.async {
+            print (name, " In dispatch queue")
             self.title = movie.title
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
@@ -38,13 +40,16 @@ public class ViewModel: ObservableObject {
     }
     
     public func refreshMovieGenre(forSearch genre: String) {
+        print("Search for genre")
         
   
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
-            self.title = movie.id
+            self.id = movie.id
+            print ("ID IS NOW " , self.id)
 //            self.year = movie.year ?? 00
 //            self.Image = movie.imageURL
         }}
+        
     }
     
     

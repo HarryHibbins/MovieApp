@@ -84,35 +84,60 @@ public final class MovieAPI : NSObject
                 do {
 
     
-                    let httpResponse = response as? HTTPURLResponse
-                            print(httpResponse)
+                   // let httpResponse = response as? HTTPURLResponse
 
                     
+                    //if let jsonData = jsonString.data(using: .utf8) {
+                        let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
                     
-                    let dictionary = try! JSONSerialization.jsonObject(with: data!)
+                    print(response)
                     
-                    print (dictionary)
-                    
-                    
-                    
-                    
-                    var jsonString = ""
-                    //self.genreResults = dictionary as! [String]
+                    self.completionHandlerGenre?(Item(responseGenre: response))
                     
                     
-                    for (key) in dictionary as! [String]{
-                        print("\(key)  ")
-                        jsonString += key
-                        
-                        print ("RESULTS: " , key)
-                        
-                    }
+                    //let dictionary = try! JSONSerialization.jsonObject(with: data!) as! [Any]
                     
-                    for result in dictionary as! [String]
-                    {
-                        self.genreResults.append(result)
-                        print ("append" , result)
-                    }
+                    
+                    //print (dictionary)
+                    
+//                    let items = try! JSONDecoder().decode([ResponseGenre].self, from: data!)
+
+                    
+
+                    // Ask JSONDecoder to decode the JSON data as DecodedArray
+                
+
+             
+                    
+                    //wself.completionHandlerGenre?(Item(responseGenre: dictionary))
+                    
+//                    var jsonString = "["
+//                    //self.genreResults = dictionary as! [String]
+//
+//
+//                    for (key) in dictionary as! [String]{
+//                        print("\(key)  ")
+//                        jsonString += key
+//                        jsonString += ","
+//
+//                        print ("RESULTS: " , key)
+//
+//                    }
+//                    jsonString += "]"
+//
+//
+//                    print(jsonString)
+//                    if let jsonData = jsonString.data(using: .utf8) {
+//                   let myModel = try! JSONDecoder().decode(MyModel.self, from: jsonData)
+//                 }
+           
+                
+//                    for result in dictionary as! [String]
+//                    {
+//                        self.genreResults.append(result)
+//                        print ("append" , result)
+//                    }
+//
                     
 //                 
 //                    let jsonData = try! JSONEncoder().encode(jsonString)
@@ -345,9 +370,20 @@ public final class MovieAPI : NSObject
     
     
     //-----FOR GENRE------
-    public struct ResponseGenre: Decodable
+     struct ResponseGenre: Decodable
     {
-        let result: String
+        let firstString: String
+        //let stringArray: [String]
+
+        init(from decoder: Decoder) throws {
+            var container = try decoder.unkeyedContainer()
+            firstString = try container.decode(String.self)
+         //   stringArray = try container.decode([String].self)
+        }
+        
+  
+     
+        
     //    let StringArray: [String]
         
 //        public init(from decoder: Decoder) throws {
@@ -360,6 +396,17 @@ public final class MovieAPI : NSObject
     }
 
 
+
+struct MyModel: Decodable {
+    let firstString: String
+    //let stringArray: [String]
+
+    init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        firstString = try container.decode(String.self)
+     //   stringArray = try container.decode([String].self)
+    }
+}
 
 //-----FOR OverView Details-------
 

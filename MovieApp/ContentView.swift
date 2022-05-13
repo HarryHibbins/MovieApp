@@ -149,6 +149,7 @@ struct ContentView: View {
                     //viewModel.refresh(forSearch: "spidermannowayhome"
                     //viewModel.movieAPI.genreResults
                     viewModel.refreshMovieGenre(forSearch: "Adventure")
+                    viewModel.refresh(forSearch: viewModel.id)
                 }
                 
                 

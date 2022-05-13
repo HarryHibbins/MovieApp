@@ -76,14 +76,14 @@ public struct Item {
     
         
     init(responseGenre: ResponseGenre) {
-        print ("RESPONSE GENRE")
-            
+          
         
-        title = ""
+        id = responseGenre.firstString
+        print ("FIRST STRING" , responseGenre.firstString)
         year = 0
         releaseDate = ""
         imageURL = ""
-        id = ""
+        title = ""
         author = ""
         description = ""
         runningTime = 0
