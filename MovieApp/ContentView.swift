@@ -23,7 +23,11 @@ struct ContentView: View {
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
     
+    @State private var firstOpening = false;
+    
     @State private var discardCount = 0;
+    
+
     
     var body: some View
     {
@@ -61,7 +65,110 @@ struct ContentView: View {
                         })
                         
                     }.padding()
-                    Spacer()
+                    //Spacer()
+                    
+                    ScrollView(.horizontal)
+                    {
+                        HStack
+                        {
+                            Button(action : {
+                                GenreSelect(searchGenre: "action")
+                            }, label: {
+                                Text("Action")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "adventure")
+                            }, label: {
+                                Text("Adventure")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "animation")
+                            }, label: {
+                                Text("Animation")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "comedy")
+                            }, label: {
+                                Text("Comedy")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+
+                            Button(action : {
+                                GenreSelect(searchGenre: "crime")
+                            }, label: {
+                                Text("Crime")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            
+                            Button(action : {
+                                GenreSelect(searchGenre: "fantasy")
+
+                            }, label: {
+                                Text("Fantasy")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "horror")
+                            }, label: {
+                                Text("Horror")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "mystery")
+                            }, label: {
+                                Text("Mystery")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "sci-fi")
+                            }, label: {
+                                Text("Sci-Fi")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                            Button(action : {
+                                GenreSelect(searchGenre: "thriller")
+                            }, label: {
+                                Text("Thriller")
+                                    .padding()
+                                    .background(Color.blue.cornerRadius(10))
+                                    .foregroundColor(.white)
+                                    .font(.headline)
+                            })
+                        }
+                    }.padding()
+                    
+                    
+                    
                     
                     Button(action : {
                         loadInfoView()
@@ -75,8 +182,9 @@ struct ContentView: View {
                         {
                             ProgressView()
                         }
-                        .scaledToFit()
-                        .padding()
+                        .scaledToFill()
+                        .frame(width: 200, height: 350)
+                        //.padding()
                     })
                     
                     
@@ -150,10 +258,14 @@ struct ContentView: View {
                 
                 .onAppear()
                 {
-                    //viewModel.refresh(forSearch: "spidermannowayhome"
-                    //viewModel.refreshMovieGenre(forSearch: "Adventure")
-                    //viewModel.refresh(forSearch: viewModel.id)
-                    viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id, forDiscard: true)}
+
+                    
+                    if !firstOpening
+                    {
+                        viewModel.refreshMovieGenre(forSearch: "animation"){viewModel.refresh(forSearch: viewModel.id, forDiscard: true)}
+                        firstOpening = true
+                    }
+                    
                     
                 }
                 
@@ -401,12 +513,18 @@ struct ContentView: View {
     //    viewModel.refresh(forSearch: viewModel.IDArray[discardCount])
 
 
-       
-        
-        
-        
-        
+              
    
+    }
+    
+    public func GenreSelect(searchGenre genre: String)
+    {
+        print("Searching for" , genre)
+        viewModel.emptyList()
+        
+        viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.id, forDiscard: false)}
+        
+       // viewModel.getRandomItem()
     }
     
     public func saveToWatchList()

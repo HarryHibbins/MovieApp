@@ -32,12 +32,6 @@ public class ViewModel: ObservableObject {
         print ("SEARCH COUNT:" , IDArray.count)
         
         
-   
-        
-        
-        
-        
-        
         if self.IDArray.count > count
         {
             var finalString = "tt"
@@ -59,6 +53,27 @@ public class ViewModel: ObservableObject {
         }
     }
     
+    public func emptyList()
+    {
+        self.IDArray.removeAll()
+        print(IDArray)
+    }
+    
+    public func getRandomItem()
+    {
+//        var finalString = "tt"
+//        var aString = IDArray.randomElement()
+//        let filteredChars = "\"/title"
+//
+//        aString = aString?.filter { filteredChars.range(of: String($0)) == nil }
+//        
+//        finalString += aString? ??
+//            
+//        refresh(forSearch: finalString, forDiscard: true)
+//        
+        
+    }
+    
     
     public func refresh(forSearch name: String, forDiscard discard: Bool) {
 
@@ -68,11 +83,15 @@ public class ViewModel: ObservableObject {
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
             self.id = movie.id
+            
+
+            
             if !discard
             {
                 self.IDArray = movie.IDArray
             }
-            print("For Search ID ARRAY COUNT: ", self.IDArray.count)
+          //  print("For Search ID ARRAY COUNT: ", self.IDArray.count)
+            print("ITEM SEACHED: ", self.title)
             
             
             
@@ -84,11 +103,11 @@ public class ViewModel: ObservableObject {
     public func refreshMovieGenre(forSearch genre: String, completionHandler: @escaping () -> Void) {
         var finalString = "tt"
         
-        var finalStrings: [String] = []
+   
         
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
             
-            var strings: [String] = []
+          //  var strings: [String] = []
             
 //            for index in 0..<movie.count
 //            {
@@ -106,11 +125,11 @@ public class ViewModel: ObservableObject {
 //            }
             
             //self.IDArray = strings
-            
+            self.IDArray.removeAll()
+            print("reset count: ",self.IDArray.count)
             
             var aString = movie[0]
 
-            print("movie count" , movie.count)
 
             let filteredChars = "\"/title"
 
@@ -121,8 +140,9 @@ public class ViewModel: ObservableObject {
             self.id = finalString
             
             self.IDArray = movie
-            print("For Genre ID ARRAY COUNT", self.IDArray.count)
-    
+            print("IDArray upated to: ", self.IDArray.count , "With genere:", genre)
+            print(self.IDArray)
+        
           
            
             completionHandler()

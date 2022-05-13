@@ -54,7 +54,7 @@ public final class MovieAPI : NSObject
         
         
         
-        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=\(genre)&limit=100")
+        let url = URL(string: "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=\(genre)&limit=300")
         
     
         
@@ -89,9 +89,9 @@ public final class MovieAPI : NSObject
                     //if let jsonData = jsonString.data(using: .utf8) {
                     
                     
-                        let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
-                    
-                        print("Response genre ", response)
+//                        let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
+//                    
+//                        print("Response genre ", response)
              
                     
                     let decoder = JSONDecoder()
