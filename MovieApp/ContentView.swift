@@ -153,7 +153,7 @@ struct ContentView: View {
                     //viewModel.refresh(forSearch: "spidermannowayhome"
                     //viewModel.refreshMovieGenre(forSearch: "Adventure")
                     //viewModel.refresh(forSearch: viewModel.id)
-                    viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id, forDiscard: false)}
+                    viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id, forDiscard: true)}
                     
                 }
                 

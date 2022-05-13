@@ -29,9 +29,29 @@ public class ViewModel: ObservableObject {
     
     public func getNextItemInList(Index count: Int)
     {
-        if IDArray.count > count
+        print ("SEARCH COUNT:" , IDArray.count)
+        
+        
+   
+        
+        
+        
+        
+        
+        if self.IDArray.count > count
         {
-            refresh(forSearch: IDArray[count], forDiscard: true)
+            var finalString = "tt"
+            var aString = IDArray[count]
+            let filteredChars = "\"/title"
+
+            aString = aString.filter { filteredChars.range(of: String($0)) == nil }
+            
+            finalString += aString
+            
+            
+            print ("Next item in list: " , IDArray[count])
+            print ("Final string: ", finalString)
+            refresh(forSearch: finalString, forDiscard: true)
         }
         else
         {
@@ -39,11 +59,11 @@ public class ViewModel: ObservableObject {
         }
     }
     
+    
     public func refresh(forSearch name: String, forDiscard discard: Bool) {
 
         
         movieAPI.searchItem(forSearch: name) { movie in DispatchQueue.main.async {
-            print (name, " In dispatch queue")
             self.title = movie.title
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
@@ -52,6 +72,7 @@ public class ViewModel: ObservableObject {
             {
                 self.IDArray = movie.IDArray
             }
+            print("For Search ID ARRAY COUNT: ", self.IDArray.count)
             
             
             
@@ -61,12 +82,35 @@ public class ViewModel: ObservableObject {
     }
     
     public func refreshMovieGenre(forSearch genre: String, completionHandler: @escaping () -> Void) {
-        print("Search for genre")
         var finalString = "tt"
-  
+        
+        var finalStrings: [String] = []
+        
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
             
-            var aString = movie.id
+            var strings: [String] = []
+            
+//            for index in 0..<movie.count
+//            {
+//                var aString = movie[index]
+//                //strings[index].append(movie[index])
+//                let filteredChars = "\"/title"
+//                
+//                aString = movie[index].filter { filteredChars.range(of: String($0)) == nil }
+//                
+//                finalString += aString
+//                
+//                print("Item added to list" , finalString)
+//                self.IDArray.append(finalString)
+//                
+//            }
+            
+            //self.IDArray = strings
+            
+            
+            var aString = movie[0]
+
+            print("movie count" , movie.count)
 
             let filteredChars = "\"/title"
 
@@ -75,27 +119,18 @@ public class ViewModel: ObservableObject {
             finalString += aString
             
             self.id = finalString
+            
+            self.IDArray = movie
+            print("For Genre ID ARRAY COUNT", self.IDArray.count)
     
-            print ("ID IS NOW " , self.id)
-            
+          
+           
             completionHandler()
-//            self.year = movie.year ?? 00
-//            self.Image = movie.imageURL
-            
+          
             
         }}
         
-//        movieAPI.searchItem(forSearch: finalString) { movie in DispatchQueue.main.async {
-//            print (finalString, " In dispatch queue")
-//            self.title = movie.title
-//            self.year = movie.year ?? 00
-//            self.Image = movie.imageURL
-//            self.id = movie.id
-//
-//
-//
-//        }}
-     
+
         
         
         

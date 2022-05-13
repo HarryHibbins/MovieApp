@@ -13,12 +13,11 @@ public final class MovieAPI : NSObject
 {
     
     private var completionHandler: ((Item) -> Void)?
-    private var completionHandlerGenre: ((Item) -> Void)?
+    private var completionHandlerGenre: (([String]) -> Void)?
     private var completionHandlerOverview: ((Item) -> Void)?
     
     //@Published var item: ResponseGenre =
-    @Published var genreResults: [String] = []
-    
+    @Published var genreResults: [ResponseGenre] = []
     
     public func searchItem(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
     {
@@ -28,7 +27,7 @@ public final class MovieAPI : NSObject
         
     }
     
-    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandlerGenre: @escaping((Item) -> Void) )
+    public func randomMoviePopularGenre(forSearch genre: String, _ completionHandlerGenre: @escaping(([String]) -> Void) )
     {
         self.completionHandlerGenre = completionHandlerGenre
         
@@ -50,7 +49,7 @@ public final class MovieAPI : NSObject
     {
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
+            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
         ]
         
         
@@ -82,34 +81,86 @@ public final class MovieAPI : NSObject
                 //Try to parse out the data
                 
                 do {
-
+                    
     
                    // let httpResponse = response as? HTTPURLResponse
 
                     
                     //if let jsonData = jsonString.data(using: .utf8) {
+                    
+                    
                         let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
                     
-                    print("Response genre ", response)
-                    
-                    self.completionHandlerGenre?(Item(responseGenre: response))
-                    
-                    
-                    //let dictionary = try! JSONSerialization.jsonObject(with: data!) as! [Any]
-                    
-                    
-                    //print (dictionary)
-                    
-//                    let items = try! JSONDecoder().decode([ResponseGenre].self, from: data!)
-
-                    
-
-                    // Ask JSONDecoder to decode the JSON data as DecodedArray
-                
-
+                        print("Response genre ", response)
              
                     
-                    //wself.completionHandlerGenre?(Item(responseGenre: dictionary))
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let transactions = try! decoder.decode([String].self, from: data!)
+                    
+                    
+                    print (transactions)
+                    
+                    
+                     
+                    self.completionHandlerGenre?([String](transactions))
+                    
+                    
+//                    let dictionary = try! JSONSerialization.jsonObject(with: data!) as! [Any]
+//
+//
+//
+//                        //print (dictionary)
+//                    var count = 0
+//
+//                    var JSONString = ""
+//                    for (key) in dictionary as! [String]{
+//                        JSONString +=  String(count)
+//                        JSONString += """
+//                        :"
+//                        """
+//                        JSONString += key
+//                        JSONString += """
+//                        ",
+//                        """
+//                        //JSONString += ","
+//                        count += 1
+//
+//                    }
+//
+//                    print (JSONString)
+//
+//                    let jsonData = JSONString.data(using: .utf8)
+//                    do {
+//                      let decoder = JSONDecoder()
+//                        let tableData = try decoder.decode(ResponseGenre.self, from: jsonData!)
+//                      print(tableData)
+//                        //print("Rows in array: \(tableData.count)")
+//                    }
+//                    catch {
+//                      print (error)
+//                    }
+
+                    
+                    //self.genreResults = dictionary as! [String]
+//                    var jsonString = ""
+//
+//                    var count = 0
+//                    for (key) in dictionary as! [String]{
+//                        print("\(key)  ")
+//                        jsonString += key
+//
+//
+//
+//                    }
+//
+//                    print ("GENRE RESULTS: ", self.genreResults)
+//
+//                    let array = jsonString.components(separatedBy: ",")
+//
+//                    print(array)
+//                    print(array[1])
+     
                     
 //                    var jsonString = "["
 //                    //self.genreResults = dictionary as! [String]
@@ -175,22 +226,13 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
+            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
         ]
         
-        
-               
-        
-        
-        print ("RAW SEARCH VALUe:" , search)
-    
-        //formattedString.replacingOccurrences(of: " ", with: "%")
-        
-        
+
         
         let stringFormated = search.replacingOccurrences(of: " ", with: "%20")
-        print ("SEARCHING FOR:" , stringFormated)
-        
+                
         
         let url = URL(string: "https://online-movie-database.p.rapidapi.com/auto-complete?q=\(stringFormated)")
         
@@ -251,7 +293,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "a0aad0a9fbmsha0bd8cd04b9b778p1a5d24jsnb64d0144111c"
+            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
         ]
         
         
@@ -288,6 +330,7 @@ public final class MovieAPI : NSObject
                     
                     let response = try! JSONDecoder().decode(ResponseOverview.self, from: data!)
                    
+
                     self.completionHandlerOverview?(Item(responseOverview: response))
 
                     
@@ -381,16 +424,18 @@ public final class MovieAPI : NSObject
     //-----FOR GENRE------
      struct ResponseGenre: Decodable
     {
-        let firstString: String
-         let secondString: String
+         var firstString: String
+        // let secondString: String
         //let stringArray: [String]
-
+         private enum CodingKeys : String, CodingKey { case zero = "0",  one = "1", four = "4"}
+         
+         
         init(from decoder: Decoder) throws {
             var container = try decoder.unkeyedContainer()
             firstString = try container.decode(String.self)
-            secondString = try container.decode(String.self)
+            //secondString = try container.decode(String.self)
 
-         //   stringArray = try container.decode([String].self)
+//            stringArray = try container.decode([String].self)
         }
         
   
@@ -410,17 +455,6 @@ public final class MovieAPI : NSObject
 
 
 
-
-struct MyModel: Decodable {
-    let firstString: String
-    //let stringArray: [String]
-
-    init(from decoder: Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        firstString = try container.decode(String.self)
-     //   stringArray = try container.decode([String].self)
-    }
-}
 
 //-----FOR OverView Details-------
 

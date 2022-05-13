@@ -81,9 +81,11 @@ public struct Item {
         
     init(responseGenre: ResponseGenre) {
           
+    
+            
+        
         
         id = responseGenre.firstString
-        print ("FIRST STRING" , responseGenre.firstString)
         year = 0
         releaseDate = ""
         imageURL = ""
@@ -91,7 +93,7 @@ public struct Item {
         author = ""
         description = ""
         runningTime = 0
-        IDArray.append(responseGenre.secondString ?? "")
+       // IDArray.append(responseGenre.secondString ?? "")
 //    title = responseOverview.title?.title ?? ""
 //    year = 0
 //
@@ -105,6 +107,8 @@ public struct Item {
 
             
         }
+    
+    
     
         
         
