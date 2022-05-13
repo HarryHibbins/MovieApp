@@ -17,6 +17,8 @@ public class ViewModel: ObservableObject {
     @Published var runningTime: String? = ""
     @Published var author: String = ""
     @Published var summary: String = "-"
+    @Published var IDArray: [String] = []
+    @Published var IDArrayCount: Int = 0
     
     public let movieAPI: MovieAPI
     
@@ -24,7 +26,20 @@ public class ViewModel: ObservableObject {
         self.movieAPI = movieAPI
     }
     
-    public func refresh(forSearch name: String) {
+    
+    public func getNextItemInList(Index count: Int)
+    {
+        if IDArray.count > count
+        {
+            refresh(forSearch: IDArray[count], forDiscard: true)
+        }
+        else
+        {
+            print("No more items to discard")
+        }
+    }
+    
+    public func refresh(forSearch name: String, forDiscard discard: Bool) {
 
         
         movieAPI.searchItem(forSearch: name) { movie in DispatchQueue.main.async {
@@ -33,6 +48,12 @@ public class ViewModel: ObservableObject {
             self.year = movie.year ?? 00
             self.Image = movie.imageURL
             self.id = movie.id
+            if !discard
+            {
+                self.IDArray = movie.IDArray
+            }
+            
+            
             
             
         

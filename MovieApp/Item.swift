@@ -19,7 +19,7 @@ public struct Item {
     let description: String?
     let runningTime: Int?
     
-
+    var IDArray: [String] = []
 
     
     init(response: Response) {
@@ -38,7 +38,6 @@ public struct Item {
     init(response: ResponseAutoComplete) {
         
         title = response.d.first?.l ?? ""
-        print ("RESPONSE TITLE" , title)
         year = response.d.first?.y
         releaseDate = ""
         imageURL = response.d.first?.i?.imageUrl ?? ""
@@ -47,13 +46,17 @@ public struct Item {
 
         author = ""
         description = ""
-        for index in 0..<response.d.count
+        if (response.d.count > 1)
         {
-            let titles = response.d[index].l
-            let years = response.d[index].y
-            let imageUrls = response.d[index].i?.imageUrl
-            print ("ALl results" , titles, years)
+            for index in 0..<response.d.count
+            {
+                let titles = response.d[index].l
+                let years = response.d[index].y
+                let imageUrls = response.d[index].i?.imageUrl
+                IDArray.append(response.d[index].id ?? "")
+            }
         }
+
         
     }
             
@@ -88,6 +91,7 @@ public struct Item {
         author = ""
         description = ""
         runningTime = 0
+        IDArray.append(responseGenre.secondString ?? "")
 //    title = responseOverview.title?.title ?? ""
 //    year = 0
 //

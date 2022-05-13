@@ -290,7 +290,6 @@ public final class MovieAPI : NSObject
                    
                     self.completionHandlerOverview?(Item(responseOverview: response))
 
-                    print ("Test" , response)
                     
                     
                 }
@@ -383,11 +382,14 @@ public final class MovieAPI : NSObject
      struct ResponseGenre: Decodable
     {
         let firstString: String
+         let secondString: String
         //let stringArray: [String]
 
         init(from decoder: Decoder) throws {
             var container = try decoder.unkeyedContainer()
             firstString = try container.decode(String.self)
+            secondString = try container.decode(String.self)
+
          //   stringArray = try container.decode([String].self)
         }
         
@@ -404,6 +406,8 @@ public final class MovieAPI : NSObject
         
         
     }
+
+
 
 
 

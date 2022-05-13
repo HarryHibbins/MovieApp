@@ -23,6 +23,8 @@ struct ContentView: View {
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
     
+    @State private var discardCount = 0;
+    
     var body: some View
     {
             
@@ -83,8 +85,7 @@ struct ContentView: View {
                     {
                         Text(viewModel.title).font(.title)
                             .foregroundColor(.white)
-                        Text(viewModel.id).font(.title)
-                            .foregroundColor(.white)
+                            .lineLimit(50)
 
                         
                         Spacer()
@@ -152,7 +153,7 @@ struct ContentView: View {
                     //viewModel.refresh(forSearch: "spidermannowayhome"
                     //viewModel.refreshMovieGenre(forSearch: "Adventure")
                     //viewModel.refresh(forSearch: viewModel.id)
-                    Discard()
+                    viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id, forDiscard: false)}
                     
                 }
                 
@@ -377,7 +378,7 @@ struct ContentView: View {
     
     public func searchItem()
     {
-        viewModel.refresh(forSearch: searchText)
+        viewModel.refresh(forSearch: searchText, forDiscard: false)
         
     }
     
@@ -393,8 +394,14 @@ struct ContentView: View {
     public func Discard()
     {
         //change this string to drop down
-        viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id)}
-        
+        //viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id)}
+
+        discardCount+=1
+        viewModel.getNextItemInList(Index: discardCount)
+    //    viewModel.refresh(forSearch: viewModel.IDArray[discardCount])
+
+
+       
         
         
         
