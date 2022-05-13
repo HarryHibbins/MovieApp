@@ -25,7 +25,7 @@ public class ViewModel: ObservableObject {
     }
     
     public func refresh(forSearch name: String) {
-        print("searching for: ", name)
+
         
         movieAPI.searchItem(forSearch: name) { movie in DispatchQueue.main.async {
             print (name, " In dispatch queue")
@@ -39,16 +39,44 @@ public class ViewModel: ObservableObject {
         }}
     }
     
-    public func refreshMovieGenre(forSearch genre: String) {
+    public func refreshMovieGenre(forSearch genre: String, completionHandler: @escaping () -> Void) {
         print("Search for genre")
-        
+        var finalString = "tt"
   
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
-            self.id = movie.id
+            
+            var aString = movie.id
+
+            let filteredChars = "\"/title"
+
+            aString = aString.filter { filteredChars.range(of: String($0)) == nil }
+            
+            finalString += aString
+            
+            self.id = finalString
+    
             print ("ID IS NOW " , self.id)
+            
+            completionHandler()
 //            self.year = movie.year ?? 00
 //            self.Image = movie.imageURL
+            
+            
         }}
+        
+//        movieAPI.searchItem(forSearch: finalString) { movie in DispatchQueue.main.async {
+//            print (finalString, " In dispatch queue")
+//            self.title = movie.title
+//            self.year = movie.year ?? 00
+//            self.Image = movie.imageURL
+//            self.id = movie.id
+//
+//
+//
+//        }}
+     
+        
+        
         
     }
     

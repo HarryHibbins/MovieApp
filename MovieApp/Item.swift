@@ -38,6 +38,7 @@ public struct Item {
     init(response: ResponseAutoComplete) {
         
         title = response.d.first?.l ?? ""
+        print ("RESPONSE TITLE" , title)
         year = response.d.first?.y
         releaseDate = ""
         imageURL = response.d.first?.i?.imageUrl ?? ""
@@ -51,7 +52,7 @@ public struct Item {
             let titles = response.d[index].l
             let years = response.d[index].y
             let imageUrls = response.d[index].i?.imageUrl
-            print (titles, years)
+            print ("ALl results" , titles, years)
         }
         
     }

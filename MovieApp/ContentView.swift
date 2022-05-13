@@ -83,6 +83,9 @@ struct ContentView: View {
                     {
                         Text(viewModel.title).font(.title)
                             .foregroundColor(.white)
+                        Text(viewModel.id).font(.title)
+                            .foregroundColor(.white)
+
                         
                         Spacer()
                         if viewModel.year != 0
@@ -147,9 +150,10 @@ struct ContentView: View {
                 .onAppear()
                 {
                     //viewModel.refresh(forSearch: "spidermannowayhome"
-                    //viewModel.movieAPI.genreResults
-                    viewModel.refreshMovieGenre(forSearch: "Adventure")
-                    viewModel.refresh(forSearch: viewModel.id)
+                    //viewModel.refreshMovieGenre(forSearch: "Adventure")
+                    //viewModel.refresh(forSearch: viewModel.id)
+                    Discard()
+                    
                 }
                 
                 
@@ -389,8 +393,13 @@ struct ContentView: View {
     public func Discard()
     {
         //change this string to drop down
-        viewModel.refreshMovieGenre(forSearch: "Adventure")
-        //viewModel.refresh(forSearch: viewModel.movieAPI.genreResults[0])
+        viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id)}
+        
+        
+        
+        
+        
+   
     }
     
     public func saveToWatchList()

@@ -90,7 +90,7 @@ public final class MovieAPI : NSObject
                     //if let jsonData = jsonString.data(using: .utf8) {
                         let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
                     
-                    print(response)
+                    print("Response genre ", response)
                     
                     self.completionHandlerGenre?(Item(responseGenre: response))
                     
@@ -179,7 +179,17 @@ public final class MovieAPI : NSObject
         ]
         
         
-        let stringFormated = search.replacingOccurrences(of: " ", with: "%")
+               
+        
+        
+        print ("RAW SEARCH VALUe:" , search)
+    
+        //formattedString.replacingOccurrences(of: " ", with: "%")
+        
+        
+        
+        let stringFormated = search.replacingOccurrences(of: " ", with: "%20")
+        print ("SEARCHING FOR:" , stringFormated)
         
         
         let url = URL(string: "https://online-movie-database.p.rapidapi.com/auto-complete?q=\(stringFormated)")
@@ -280,7 +290,7 @@ public final class MovieAPI : NSObject
                    
                     self.completionHandlerOverview?(Item(responseOverview: response))
 
-                    print (response)
+                    print ("Test" , response)
                     
                     
                 }
