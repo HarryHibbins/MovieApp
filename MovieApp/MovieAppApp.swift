@@ -13,7 +13,13 @@ struct MovieAppApp: App {
         WindowGroup {
             let movieAPI = MovieAPI()
             let viewModel = ViewModel(movieAPI: movieAPI)
-            ContentView(viewModel: viewModel)
+            let watchListViewModel = ViewModel(movieAPI: movieAPI)
+
+            //ContentView(viewModel: viewModel)
+            //DiscoverView()
+            ContentView(viewModel: viewModel, watchListViewModel: watchListViewModel)
+           // ContentView()
+            //abView()
             
             
            

@@ -49,7 +49,7 @@ public final class MovieAPI : NSObject
     {
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
+            "X-RapidAPI-Key": "7cc45d652bmsha76b1cfaaa21585p171c95jsn414984bbafd8"
         ]
         
         
@@ -96,14 +96,14 @@ public final class MovieAPI : NSObject
                     
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
-                    let transactions = try! decoder.decode([String].self, from: data!)
+                    let results = try! decoder.decode([String].self, from: data!)
                     
                     
-                    print (transactions)
+                    print (results)
                     
                     
                      
-                    self.completionHandlerGenre?([String](transactions))
+                    self.completionHandlerGenre?([String](results))
                     
                     
 //                    let dictionary = try! JSONSerialization.jsonObject(with: data!) as! [Any]
@@ -226,7 +226,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
+            "X-RapidAPI-Key": "7cc45d652bmsha76b1cfaaa21585p171c95jsn414984bbafd8"
         ]
         
 
@@ -293,7 +293,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
+            "X-RapidAPI-Key": "7cc45d652bmsha76b1cfaaa21585p171c95jsn414984bbafd8"
         ]
         
         
