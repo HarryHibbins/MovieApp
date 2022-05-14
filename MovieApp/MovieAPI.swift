@@ -16,8 +16,6 @@ public final class MovieAPI : NSObject
     private var completionHandlerGenre: (([String]) -> Void)?
     private var completionHandlerOverview: ((Item) -> Void)?
     
-    //@Published var item: ResponseGenre =
-    @Published var genreResults: [ResponseGenre] = []
     
     public func searchItem(forSearch name: String, _ completionHandler: @escaping((Item) -> Void) )
     {
@@ -420,37 +418,6 @@ public final class MovieAPI : NSObject
         var width: Int
     }
     
-    
-    //-----FOR GENRE------
-     struct ResponseGenre: Decodable
-    {
-         var firstString: String
-        // let secondString: String
-        //let stringArray: [String]
-         private enum CodingKeys : String, CodingKey { case zero = "0",  one = "1", four = "4"}
-         
-         
-        init(from decoder: Decoder) throws {
-            var container = try decoder.unkeyedContainer()
-            firstString = try container.decode(String.self)
-            //secondString = try container.decode(String.self)
-
-//            stringArray = try container.decode([String].self)
-        }
-        
-  
-     
-        
-    //    let StringArray: [String]
-        
-//        public init(from decoder: Decoder) throws {
-//                var container = try decoder.unkeyedContainer()
-//                firstString = try container.decode(String.self)
-//                StringArray = try container.decode([String].self)
-//            }
-        
-        
-    }
 
 
 

@@ -79,35 +79,7 @@ public struct Item {
     
     
         
-    init(responseGenre: ResponseGenre) {
-          
-    
-            
-        
-        
-        id = responseGenre.firstString
-        year = 0
-        releaseDate = ""
-        imageURL = ""
-        title = ""
-        author = ""
-        description = ""
-        runningTime = 0
-       // IDArray.append(responseGenre.secondString ?? "")
-//    title = responseOverview.title?.title ?? ""
-//    year = 0
-//
-//    releaseDate = responseOverview.releaseDate
-//
-//    imageURL = responseOverview.title?.image?.url ?? ""
-//    id = responseOverview.title?.id ?? ""
-//    author = responseOverview.plotSummary?.author
-//    description = responseOverview.plotSummary?.text
-//    runningTime = responseOverview.title?.runningTimeInMinutes
-
-            
-        }
-    
+   
     
     
         

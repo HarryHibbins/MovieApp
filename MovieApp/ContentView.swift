@@ -637,7 +637,7 @@ struct DiscoverView: View {
     {
         viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: true)}
         lastCallWasSearch = false
-        
+        print ("selected genre: " , genre)
         DeselectGenres()
         switch genre
         {

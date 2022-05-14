@@ -15,11 +15,8 @@ struct MovieAppApp: App {
             let viewModel = ViewModel(movieAPI: movieAPI)
             let watchListViewModel = ViewModel(movieAPI: movieAPI)
 
-            //ContentView(viewModel: viewModel)
-            //DiscoverView()
-            ContentView(viewModel: viewModel, watchListViewModel: watchListViewModel)
-           // ContentView()
-            //abView()
+          ContentView(viewModel: viewModel, watchListViewModel: watchListViewModel)
+         
             
             
            
