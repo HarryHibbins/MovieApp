@@ -19,14 +19,28 @@ struct ContentView: View {
     @State public var cameFromWatchlist = false
     @State public var lastCallWasSearch = false
     
-    
     @State private var WatchlistViewShowing = false;
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
     
+    
+    @State private var action = false
+    @State private var adventure = false
+    @State private var animation = false
+    @State private var comedy = false
+    @State private var fantasy = false
+    @State private var crime = false
+    @State private var horror = false
+    @State private var mystery = false
+    @State private var scifi = false
+    @State private var thriller = false
+    
+    
+    
     @State private var firstOpening = false;
     
     @State private var discardCount = 0;
+
     
 
     
@@ -46,8 +60,10 @@ struct ContentView: View {
                 {
                     HStack
                     {
+    
                         TextField ("Search for...", text: $searchText)
                             .padding()
+                            
                             .background(Color("SearchBarBackground").cornerRadius(10))
                             .foregroundColor(.white)
                             .font(.headline)
@@ -77,7 +93,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Action")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
+                                    .background(action ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)
                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
@@ -86,8 +102,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Adventure")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(adventure ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                           .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -95,8 +110,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Animation")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(animation ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -104,8 +118,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Comedy")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(comedy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
 
@@ -114,8 +127,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Crime")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(crime ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             
@@ -124,8 +136,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Fantasy")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(fantasy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -133,8 +144,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Horror")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(horror ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -142,8 +152,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Mystery")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(mystery ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -151,8 +160,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Sci-Fi")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(scifi ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
@@ -160,8 +168,7 @@ struct ContentView: View {
                             }, label: {
                                 Text("Thriller")
                                     .padding()
-                                    .background(Color.blue.cornerRadius(10))
-                                    .foregroundColor(.white)
+                                    .background(thriller ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
                         }
@@ -533,7 +540,47 @@ struct ContentView: View {
         viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: true)}
         lastCallWasSearch = false
         
+        DeselectGenres()
+        switch genre
+        {
+        case "action":
+            action = true
+        case "adventure":
+            adventure = true
+        case "animation":
+            animation = true
+        case "comedy":
+            comedy = true
+        case "fantasy":
+            fantasy = true
+        case "horror":
+            horror = true
+        case "mystery":
+            mystery = true
+        case "sci-fi":
+            scifi = true
+        case "thriller":
+            thriller = true
+        default:
+            DeselectGenres()
+        }
+
+        
        // viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: false)
+    }
+    
+    public func DeselectGenres()
+    {
+        action = false
+        adventure = false
+        animation = false
+        comedy = false
+        crime = false
+        fantasy = false
+        horror = false
+        mystery = false
+        scifi = false
+        thriller = false
     }
     
     public func GenreSelect(searchGenre genre: String)
@@ -639,11 +686,11 @@ struct ContentView: View {
 
 
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(viewModel: ViewModel(movieAPI: MovieAPI()))
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(viewModel: ViewModel(movieAPI: MovieAPI()))
+//    }
+//}
 
 
