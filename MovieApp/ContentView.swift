@@ -11,10 +11,9 @@ import Foundation
 struct ContentView: View {
     
     @ObservedObject var viewModel: ViewModel
+    
     @State private var searchText = ""
-//    @State public var watchListTitles: [String] = []
-//    @State public var watchListImages: [String] = []
-//    @State public var watchListYears: [Int] = []
+
     @State public var watchListItems: [WatchListItem] = []
     @State public var cameFromWatchlist = false
     @State public var lastCallWasSearch = false
@@ -46,6 +45,24 @@ struct ContentView: View {
     
     var body: some View
     {
+        TabView{
+            
+            Text("Watchlist")
+                .tabItem{
+                    //Image("watchlist")
+                       // .resizable()
+                        
+                    Text("Watchlist")
+                }
+            
+    
+             
+            Text("Discover")
+                .tabItem{
+                    //Image("discover")
+                    Text("Discover")
+            }
+        }
             
         ZStack
         {
@@ -60,14 +77,24 @@ struct ContentView: View {
                 {
                     HStack
                     {
-    
-                        TextField ("Search for...", text: $searchText)
-                            .padding()
-                            
+                        
+                        ZStack(alignment: .leading)
+                        {
+                            if searchText.isEmpty{
+                                Text("Search For...")
+                                    .font(.headline)
+                                    .opacity(0.3)
+                            }
+                            TextField ("" , text: $searchText)
+                               
+                                
+                        } .padding()
                             .background(Color("SearchBarBackground").cornerRadius(10))
+                            //.background(Color("SearchBarBackground").cornerRadius(10))
                             .foregroundColor(.white)
                             .font(.headline)
-                            
+                            .accentColor(.white)
+                      
                             
                         
                         Button(action : {
@@ -75,13 +102,12 @@ struct ContentView: View {
                         }, label: {
                             Text("Submit")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.blue.cornerRadius(10))
+                                .background(Color("ButtonInFocus").cornerRadius(10))
                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
                         
-                    }.padding()
+                    }.padding([.leading, .trailing])
                     //Spacer()
                     
                     ScrollView(.horizontal)
@@ -92,8 +118,8 @@ struct ContentView: View {
                                 getRandom(forGenre: "action")
                             }, label: {
                                 Text("Action")
-                                    .padding()
-                                    .background(action ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)
+                                    .padding(10)
+                                    .background(action ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)
                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
@@ -101,24 +127,24 @@ struct ContentView: View {
                                 getRandom(forGenre: "adventure")
                             }, label: {
                                 Text("Adventure")
-                                    .padding()
-                                    .background(adventure ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                           .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(adventure ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                           .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "animation")
                             }, label: {
                                 Text("Animation")
-                                    .padding()
-                                    .background(animation ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(animation ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "comedy")
                             }, label: {
                                 Text("Comedy")
-                                    .padding()
-                                    .background(comedy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(comedy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
 
@@ -126,8 +152,8 @@ struct ContentView: View {
                                 getRandom(forGenre: "crime")
                             }, label: {
                                 Text("Crime")
-                                    .padding()
-                                    .background(crime ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(crime ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             
@@ -135,44 +161,44 @@ struct ContentView: View {
                                 getRandom(forGenre: "fantasy")
                             }, label: {
                                 Text("Fantasy")
-                                    .padding()
-                                    .background(fantasy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(fantasy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "horror")
                             }, label: {
                                 Text("Horror")
-                                    .padding()
-                                    .background(horror ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(horror ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "mystery")
                             }, label: {
                                 Text("Mystery")
-                                    .padding()
-                                    .background(mystery ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(mystery ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "sci-fi")
                             }, label: {
                                 Text("Sci-Fi")
-                                    .padding()
-                                    .background(scifi ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                     .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(scifi ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
                             Button(action : {
                                 getRandom(forGenre: "thriller")
                             }, label: {
                                 Text("Thriller")
-                                    .padding()
-                                    .background(thriller ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                     .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(thriller ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                     .foregroundColor(.white)
                                     .font(.headline)
                             })
                         }
-                    }.padding()
+                    }.padding([.leading, .trailing])
                     
                     
                     
@@ -218,7 +244,6 @@ struct ContentView: View {
                         }, label: {
                             Text("Discard")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
                                 .background(Color.red.cornerRadius(10))
                                 .foregroundColor(.white)
                                 .font(.headline)
@@ -230,35 +255,33 @@ struct ContentView: View {
                         }, label: {
                             Text("Save")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
                                 .background(Color.green.cornerRadius(10))
                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
-                    }.padding()
+                    }.padding([.leading, .trailing, .bottom])
                     
                     HStack {
-                        Button(action : {
-                            loadWatchlistView()
-                            
-                        }, label: {
-                            Text("Watchlist")
-                                .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        })
-                        Button(action : {
-                            loadDiscoverView()
-                        }, label: {
-                            Text("Discover")
-                                .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        })
+                        
+                        
+//                        Button(action : {
+//                            loadWatchlistView()
+//
+//                        }, label: {
+//                            Text("Watchlist")
+//                                .padding()
+//                                .background(WatchlistViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
+//                                .font(.headline)
+//                        })
+//                        Button(action : {
+//                            loadDiscoverView()
+//                        }, label: {
+//                            Text("Discover")
+//                                .padding()
+//                                .background(DiscoverViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
+//                                .font(.headline)
+//
+//                        })
                     }
                     
                 }
@@ -341,10 +364,7 @@ struct ContentView: View {
                             
                         }, label: {
                             Text("Watchlist")
-                                .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
+                                .background(WatchlistViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
                         Button(action : {
@@ -352,9 +372,7 @@ struct ContentView: View {
                         }, label: {
                             Text("Discover")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
+                                .background(DiscoverViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
                     }
@@ -440,14 +458,7 @@ struct ContentView: View {
                     {
                         ProgressView()
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    //Text(viewModel.author)
-                    
+                       
                     ScrollView
                     {
                         Text(viewModel.summary)
@@ -464,9 +475,7 @@ struct ContentView: View {
                         }, label: {
                             Text("Watchlist")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
+                                .background(WatchlistViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
                         Button(action : {
@@ -474,9 +483,7 @@ struct ContentView: View {
                         }, label: {
                             Text("Discover")
                                 .padding()
-                            //   .frame(maxWidth: .infinity)
-                                .background(Color.green.cornerRadius(10))
-                                .foregroundColor(.white)
+                                .background(DiscoverViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
                                 .font(.headline)
                         })
                     }
@@ -528,11 +535,6 @@ struct ContentView: View {
             viewModel.getNextItemInList(Index: discardCount)
         }
      
-  
-
-
-              
-   
     }
     
     public func getRandom(forGenre genre: String)
@@ -566,8 +568,8 @@ struct ContentView: View {
         }
 
         
-       // viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: false)
     }
+
     
     public func DeselectGenres()
     {
@@ -686,11 +688,11 @@ struct ContentView: View {
 
 
 
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(viewModel: ViewModel(movieAPI: MovieAPI()))
-//    }
-//}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewModel: ViewModel(movieAPI: MovieAPI()))
+    }
+}
 
 
