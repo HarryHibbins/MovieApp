@@ -59,7 +59,7 @@ public class ViewModel: ObservableObject {
         print(IDArray)
     }
     
-    public func getRandomItem()
+    public func getRandomItem() -> String
     {
 //        var finalString = "tt"
 //        var aString = IDArray.randomElement()
@@ -70,7 +70,24 @@ public class ViewModel: ObservableObject {
 //        finalString += aString? ??
 //            
 //        refresh(forSearch: finalString, forDiscard: true)
-//        
+//
+        
+        print ("Random Search Count:" , IDArray.count)
+        
+        
+        
+            var finalString = "tt"
+            var aString = IDArray.randomElement()
+            let filteredChars = "\"/title"
+
+        aString = aString?.filter { filteredChars.range(of: String($0)) == nil }
+        finalString += aString ?? ""
+            
+            
+            print ("Final string: ", finalString)
+        return finalString
+            //refresh(forSearch: finalString, forDiscard: true)
+   
         
     }
     
@@ -163,11 +180,14 @@ public class ViewModel: ObservableObject {
             self.title = movie.title
             self.releaseDate = "Release date: " + movie.releaseDate!
             
+            if movie.runningTime != nil{
+                self.runningTime = "Running time: " + String(movie.runningTime!) + "m"
+
+            }
             
-            self.runningTime = "Running time: " + String(movie.runningTime!) + "m"
             self.Image = movie.imageURL
             self.author = movie.author ?? ""
-            self.summary = movie.description ?? ""
+            self.summary = movie.description ?? "No Description Avaliable"
         }}
     }
     

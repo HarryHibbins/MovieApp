@@ -17,6 +17,7 @@ struct ContentView: View {
 //    @State public var watchListYears: [Int] = []
     @State public var watchListItems: [WatchListItem] = []
     @State public var cameFromWatchlist = false
+    @State public var lastCallWasSearch = false
     
     
     @State private var WatchlistViewShowing = false;
@@ -72,7 +73,7 @@ struct ContentView: View {
                         HStack
                         {
                             Button(action : {
-                                GenreSelect(searchGenre: "action")
+                                getRandom(forGenre: "action")
                             }, label: {
                                 Text("Action")
                                     .padding()
@@ -81,7 +82,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "adventure")
+                                getRandom(forGenre: "adventure")
                             }, label: {
                                 Text("Adventure")
                                     .padding()
@@ -90,7 +91,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "animation")
+                                getRandom(forGenre: "animation")
                             }, label: {
                                 Text("Animation")
                                     .padding()
@@ -99,7 +100,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "comedy")
+                                getRandom(forGenre: "comedy")
                             }, label: {
                                 Text("Comedy")
                                     .padding()
@@ -109,7 +110,7 @@ struct ContentView: View {
                             })
 
                             Button(action : {
-                                GenreSelect(searchGenre: "crime")
+                                getRandom(forGenre: "crime")
                             }, label: {
                                 Text("Crime")
                                     .padding()
@@ -119,8 +120,7 @@ struct ContentView: View {
                             })
                             
                             Button(action : {
-                                GenreSelect(searchGenre: "fantasy")
-
+                                getRandom(forGenre: "fantasy")
                             }, label: {
                                 Text("Fantasy")
                                     .padding()
@@ -129,7 +129,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "horror")
+                                getRandom(forGenre: "horror")
                             }, label: {
                                 Text("Horror")
                                     .padding()
@@ -138,7 +138,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "mystery")
+                                getRandom(forGenre: "mystery")
                             }, label: {
                                 Text("Mystery")
                                     .padding()
@@ -147,7 +147,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "sci-fi")
+                                getRandom(forGenre: "sci-fi")
                             }, label: {
                                 Text("Sci-Fi")
                                     .padding()
@@ -156,7 +156,7 @@ struct ContentView: View {
                                     .font(.headline)
                             })
                             Button(action : {
-                                GenreSelect(searchGenre: "thriller")
+                                getRandom(forGenre: "thriller")
                             }, label: {
                                 Text("Thriller")
                                     .padding()
@@ -207,7 +207,7 @@ struct ContentView: View {
                     HStack
                     {
                         Button(action : {
-                            Discard()
+                            Discard(nextInList: lastCallWasSearch, forGenre: "doesntmatter")
                         }, label: {
                             Text("Discard")
                                 .padding()
@@ -258,11 +258,12 @@ struct ContentView: View {
                 
                 .onAppear()
                 {
-
+                    
+                    let genres: [String] = ["action","adventure","animation","comedy","crime","fantasy","horror","mystery","sci-fi","thriller"]
                     
                     if !firstOpening
                     {
-                        viewModel.refreshMovieGenre(forSearch: "animation"){viewModel.refresh(forSearch: viewModel.id, forDiscard: true)}
+                        getRandom(forGenre: genres.randomElement()!)
                         firstOpening = true
                     }
                     
@@ -490,7 +491,9 @@ struct ContentView: View {
     
     public func searchItem()
     {
+        discardCount = 0
         viewModel.refresh(forSearch: searchText, forDiscard: false)
+        lastCallWasSearch = true
         
     }
     
@@ -503,18 +506,34 @@ struct ContentView: View {
         
     }
     
-    public func Discard()
+    public func Discard(nextInList nextInList: Bool, forGenre genre: String)
     {
-        //change this string to drop down
-        //viewModel.refreshMovieGenre(forSearch: "Adventure"){viewModel.refresh(forSearch: viewModel.id)}
+        print(nextInList)
 
-        discardCount+=1
-        viewModel.getNextItemInList(Index: discardCount)
-    //    viewModel.refresh(forSearch: viewModel.IDArray[discardCount])
+
+        if !nextInList
+        {
+            getRandom(forGenre: genre)
+        }
+        else
+        {
+            discardCount+=1
+            viewModel.getNextItemInList(Index: discardCount)
+        }
+     
+  
 
 
               
    
+    }
+    
+    public func getRandom(forGenre genre: String)
+    {
+        viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: true)}
+        lastCallWasSearch = false
+        
+       // viewModel.refresh(forSearch: viewModel.getRandomItem(), forDiscard: false)
     }
     
     public func GenreSelect(searchGenre genre: String)
@@ -523,6 +542,7 @@ struct ContentView: View {
         viewModel.emptyList()
         
         viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.id, forDiscard: false)}
+        lastCallWasSearch = false
         
        // viewModel.getRandomItem()
     }

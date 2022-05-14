@@ -49,7 +49,7 @@ public final class MovieAPI : NSObject
     {
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
+            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
         ]
         
         
@@ -226,7 +226,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
+            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
         ]
         
 
@@ -293,7 +293,7 @@ public final class MovieAPI : NSObject
         
         let headers = [
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            "X-RapidAPI-Key": "0ca96c3d12msh426f558cb45b490p196c7cjsna2bfd5d80839"
+            "X-RapidAPI-Key": "0769383bf0msh40d5b6bc7d9032ep1d81a7jsn04096886666c"
         ]
         
         
@@ -492,16 +492,16 @@ public struct title: Decodable
 
 public struct imageOverview: Decodable
 {
-    var height: Int
-    var url: String
-    var width: Int
+    var height: Int?
+    var url: String?
+    var width: Int?
 }
 
 public struct ratings: Decodable
 {
-    var canRate: Bool
-    var rating: Double
-    var ratingCount: Int
+    var canRate: Bool?
+    var rating: Double?
+    var ratingCount: Int?
 }
 
 public struct genres: Decodable
@@ -513,7 +513,7 @@ public struct genres: Decodable
 public struct plotSummary: Decodable
 {
     var author: String?
-    var text: String
+    var text: String?
 }
 
 
