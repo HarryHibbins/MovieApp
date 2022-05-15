@@ -109,6 +109,7 @@ public class ViewModel: ObservableObject {
             }
           //  print("For Search ID ARRAY COUNT: ", self.IDArray.count)
             print("ITEM SEACHED: ", self.title)
+
             
             
             

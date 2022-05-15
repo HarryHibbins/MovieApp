@@ -146,6 +146,12 @@ struct watchListView: View{
                             { image in
                                 image.resizable()
                                     .scaledToFit()
+                                    .gesture(DragGesture()
+                                                .onChanged(){ offset in {
+                                        //offset = gesture.translation
+                                    }
+                                        
+                                    })
                             } placeholder:
                             {
                                 ProgressView()
@@ -439,7 +445,7 @@ struct DiscoverView: View {
                                 {
                                     Text(String(viewModel.year))
                                         .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Color("ButtonInFocus"))
                                 }
                               
                             }.padding()
@@ -448,6 +454,7 @@ struct DiscoverView: View {
                                 Button(action : {
                                     Discard(nextInList: lastCallWasSearch, forGenre: currentGenre)
                                 }, label: {
+                                    //Text("New Suggestion")
                                     Text("Discard")
                                         .padding()
                                         .background(Color.red.cornerRadius(10))
@@ -588,6 +595,9 @@ struct DiscoverView: View {
         discardCount = 0
         viewModel.refresh(forSearch: searchText, forDiscard: false)
         lastCallWasSearch = true
+        //Fix for dans testing    hasSavedItem = false
+     
+
         
     }
     
