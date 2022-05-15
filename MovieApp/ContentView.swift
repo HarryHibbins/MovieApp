@@ -9,12 +9,13 @@ import SwiftUI
 import Foundation
 
 
-
 struct watchListView: View{
     
     @Binding var watchListItems: [WatchListItem]
     @ObservedObject var viewModel: ViewModel
     @ObservedObject var watchListViewModel: ViewModel
+    @Binding  var hasSavedItem: Bool
+
 
     @State private var WatchlistViewShowing = true;
     @State private var InfoViewShowing = false;
@@ -43,14 +44,14 @@ struct watchListView: View{
                                     
                                     HStack
                                     {
-                                        Text(item.title).font(.title)
+                                        Text(item.title).font(.largeTitle)
                                             .foregroundColor(.white)
                                         Spacer()
                                     }
                                     HStack
                                     {
                                         Text(String(item.year)).font(.title3)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(Color("ButtonInFocus"))
                                         Spacer()
                                     }
                                     
@@ -98,22 +99,24 @@ struct watchListView: View{
                 
                 
                                 }, label: {
-                                    Text("Back")
-                                        .padding()
+                                    Image(systemName: "arrowshape.turn.up.left")
+                                    .padding()
                                     //   .frame(maxWidth: .infinity)
-                                        .background(Color.green.cornerRadius(10))
+                                        .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
                                         .font(.headline)
                                 })
                                 Spacer()
                                 Button(action : {
-                                    removeFromWatchList()
+                                    saveOrRemoveFromWatchlist()
                                     
                                 }, label: {
-                                    Text("Remove")
+                                    Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
                                     //   .frame(maxWidth: .infinity)
-                                        .background(Color.red.cornerRadius(10))
+                                        //.background(Color.green.cornerRadius(10))
+                                        .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
+                                    
                                         .foregroundColor(.white)
                                         .font(.headline)
                                 })
@@ -123,7 +126,7 @@ struct watchListView: View{
                             
                             HStack
                             {
-                                Text(watchListViewModel.title).font(.title)
+                                Text(watchListViewModel.title).font(.largeTitle)
                                     .foregroundColor(.white)
                                 Spacer()
                             }
@@ -131,14 +134,14 @@ struct watchListView: View{
                             
                             HStack
                             {
-                                Text(watchListViewModel.releaseDate!).font(.title2)
-                                    .foregroundColor(.white)
+                                Text(watchListViewModel.releaseDate!).font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             HStack
                             {
-                                Text(watchListViewModel.runningTime!).font(.title2)
-                                    .foregroundColor(.white)
+                                Text(watchListViewModel.runningTime!).font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             
@@ -149,7 +152,7 @@ struct watchListView: View{
                             { image in
                                 image.resizable()
                                 
-                                    .frame(width: 300, height: 400)
+                                   // .frame(width: 200, height: 300)
                                     .scaledToFit()
                                 
                                 //.padding()
@@ -157,6 +160,13 @@ struct watchListView: View{
                             {
                                 ProgressView()
                             }
+                            HStack
+                            {
+                                Text("Synopsis: ").font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
+                                Spacer()
+                            }
+                          
                                
                             ScrollView
                             {
@@ -200,32 +210,33 @@ struct watchListView: View{
         
     }
     
-    public func saveToWatchList()
+
+    
+    public func saveOrRemoveFromWatchlist()
     {
         
-        if !watchListItems.contains(where: {$0.id == watchListViewModel.id}) {
+        if !watchListItems.contains(where: {$0.id == viewModel.id}) {
        
-            print ("ITEM ADDED TO WATCHLIST: ", watchListViewModel.title)
+            print ("ITEM ADDED TO WATCHLIST: ", viewModel.title)
             
-            var item: WatchListItem = WatchListItem(title: watchListViewModel.title, id: watchListViewModel.id, url: watchListViewModel.Image, year: watchListViewModel.year)
+            let item: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
             
             watchListItems.append(item)
+            hasSavedItem = true
         } else {
-            print("Already in watchlist")
-        }
-}
-    
-    public func removeFromWatchList()
-    {
-        
-        if watchListItems.contains(where: {$0.id == watchListViewModel.id}) {
-       
-            print ("ITEM REMOVED FROM WATCHLIST: ", watchListViewModel.title)
+            print("Removed from watchlist")
+            hasSavedItem = false
             
-            var item: WatchListItem = WatchListItem(title: watchListViewModel.title, id: watchListViewModel.id, url: watchListViewModel.Image, year: watchListViewModel.year)
-            
-           // watchListItems.remove(item)
-            
+            print("Watch list count" , watchListItems.count)
+            let found: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
+            for i in (0...watchListItems.count-1) {
+                if watchListItems[i] == found {
+                    
+                    watchListItems.remove(at: i)
+                }
+            }
+     
+
         }
 }
  
@@ -236,6 +247,7 @@ struct DiscoverView: View {
     
     @ObservedObject var viewModel: ViewModel
     @Binding var watchListItems: [WatchListItem]
+    @Binding var hasSavedItem: Bool
     
     @State private var searchText = ""
 
@@ -245,7 +257,7 @@ struct DiscoverView: View {
     @State private var WatchlistViewShowing = false;
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
-    
+
     
     @State private var action = false
     @State private var adventure = false
@@ -257,6 +269,9 @@ struct DiscoverView: View {
     @State private var mystery = false
     @State private var scifi = false
     @State private var thriller = false
+    
+    @State private var currentGenre = ""
+
     
     
     
@@ -300,7 +315,8 @@ struct DiscoverView: View {
                                 Button(action : {
                                     searchItem()
                                 }, label: {
-                                    Text("Submit")
+                    
+                                    Image(systemName: "chevron.forward")
                                         .padding()
                                         .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
@@ -440,7 +456,7 @@ struct DiscoverView: View {
                             HStack
                             {
                                 Button(action : {
-                                    Discard(nextInList: lastCallWasSearch, forGenre: "doesntmatter")
+                                    Discard(nextInList: lastCallWasSearch, forGenre: currentGenre)
                                 }, label: {
                                     Text("Discard")
                                         .padding()
@@ -450,12 +466,15 @@ struct DiscoverView: View {
                                 })
                                 Spacer()
                                 Button(action : {
-                                    saveToWatchList()
+                                    saveOrRemoveFromWatchlist()
                                     
                                 }, label: {
-                                    Text("Save")
+                                    Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
-                                        .background(Color.green.cornerRadius(10))
+                                    //   .frame(maxWidth: .infinity)
+                                        //.background(Color.green.cornerRadius(10))
+                                        .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
+                                    
                                         .foregroundColor(.white)
                                         .font(.headline)
                                 })
@@ -505,23 +524,25 @@ struct DiscoverView: View {
                 
                 
                                 }, label: {
-                                    Text("Back")
-                                        .padding()
+                                    Image(systemName: "arrowshape.turn.up.left")
+                                    .padding()
                                     //   .frame(maxWidth: .infinity)
-                                        .background(Color.green.cornerRadius(10))
+                                        .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
                                         .font(.headline)
                                 })
                                 Spacer()
                                 
                                 Button(action : {
-                                    saveToWatchList()
+                                    saveOrRemoveFromWatchlist()
                                     
                                 }, label: {
-                                    Text("Save")
+                                    Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
                                     //   .frame(maxWidth: .infinity)
-                                        .background(Color.green.cornerRadius(10))
+                                        //.background(Color.green.cornerRadius(10))
+                                        .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
+                                    
                                         .foregroundColor(.white)
                                         .font(.headline)
                                 })
@@ -530,7 +551,7 @@ struct DiscoverView: View {
                             
                             HStack
                             {
-                                Text(viewModel.title).font(.title)
+                                Text(viewModel.title).font(.largeTitle)
                                     .foregroundColor(.white)
                                 Spacer()
                             }
@@ -538,14 +559,14 @@ struct DiscoverView: View {
                             
                             HStack
                             {
-                                Text(viewModel.releaseDate!).font(.title2)
-                                    .foregroundColor(.white)
+                                Text(viewModel.releaseDate!).font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             HStack
                             {
-                                Text(viewModel.runningTime!).font(.title2)
-                                    .foregroundColor(.white)
+                                Text(viewModel.runningTime!).font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             
@@ -556,7 +577,7 @@ struct DiscoverView: View {
                             { image in
                                 image.resizable()
                                 
-                                    .frame(width: 300, height: 400)
+                                 //   .frame(width: 300, height: 400)
                                     .scaledToFit()
                                 
                                 //.padding()
@@ -565,6 +586,12 @@ struct DiscoverView: View {
                                 ProgressView()
                             }
                                
+                            HStack
+                            {
+                                Text ("Synopsis: ").font(.title3)
+                                    .foregroundColor(Color("ButtonInFocus"))
+                                Spacer()
+                            }
                             ScrollView
                             {
                                 Text(viewModel.summary)
@@ -630,6 +657,7 @@ struct DiscoverView: View {
             discardCount+=1
             viewModel.getNextItemInList(Index: discardCount)
         }
+        hasSavedItem = false
      
     }
     
@@ -643,22 +671,34 @@ struct DiscoverView: View {
         {
         case "action":
             action = true
+            currentGenre = "action"
         case "adventure":
             adventure = true
+            currentGenre = "adventure"
         case "animation":
             animation = true
+            currentGenre = "animation"
         case "comedy":
             comedy = true
+            currentGenre = "comedy"
+        case "crime":
+            crime = true
+            currentGenre = "crime"
         case "fantasy":
             fantasy = true
+            currentGenre = "fantasy"
         case "horror":
             horror = true
+            currentGenre = "horror"
         case "mystery":
             mystery = true
+            currentGenre = "myster"
         case "sci-fi":
             scifi = true
+            currentGenre = "sci-fi"
         case "thriller":
             thriller = true
+            currentGenre = "thriller"
         default:
             DeselectGenres()
         }
@@ -692,18 +732,31 @@ struct DiscoverView: View {
        // viewModel.getRandomItem()
     }
     
-    public func saveToWatchList()
+    public func saveOrRemoveFromWatchlist()
     {
         
         if !watchListItems.contains(where: {$0.id == viewModel.id}) {
        
             print ("ITEM ADDED TO WATCHLIST: ", viewModel.title)
             
-            var item: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
+            let item: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
             
             watchListItems.append(item)
+            hasSavedItem = true
         } else {
-            print("Already in watchlist")
+            print("Removed from watchlist")
+            hasSavedItem = false
+            
+            print("Watch list count" , watchListItems.count)
+            let found: WatchListItem = WatchListItem(title: viewModel.title, id: viewModel.id, url: viewModel.Image, year: viewModel.year)
+            for i in (0...watchListItems.count-1) {
+                if watchListItems[i] == found {
+                    
+                    watchListItems.remove(at: i)
+                }
+            }
+     
+
         }
 }
 
@@ -748,8 +801,8 @@ struct ContentView: View {
     @State public var watchListItems: [WatchListItem] = []
     @ObservedObject var viewModel: ViewModel
     @ObservedObject var watchListViewModel: ViewModel
+    @State private var hasSavedItem = false
 
-    
 
 
    var body: some View
@@ -757,13 +810,13 @@ struct ContentView: View {
   
        TabView{
            
-           DiscoverView(viewModel: viewModel, watchListItems: $watchListItems)
+           DiscoverView(viewModel: viewModel, watchListItems: $watchListItems, hasSavedItem: $hasSavedItem)
                .tabItem {
                    Image(systemName: "eyes")
                    Text("Discover")
                }
            
-           watchListView(watchListItems: $watchListItems, viewModel: viewModel,  watchListViewModel: watchListViewModel)
+           watchListView(watchListItems: $watchListItems, viewModel: viewModel,  watchListViewModel: watchListViewModel, hasSavedItem: $hasSavedItem)
                    .tabItem{
                        Image(systemName: "sparkles.tv")
                       
