@@ -19,7 +19,6 @@ struct watchListView: View{
 
     @State private var WatchlistViewShowing = true;
     @State private var InfoViewShowing = false;
-    @State private var offset = CGSize.zero
     
     
     
@@ -147,7 +146,7 @@ struct watchListView: View{
                             { image in
                                 image.resizable()
                                     .scaledToFit()
-                                    
+                 
                             } placeholder:
                             {
                                 ProgressView()
@@ -250,8 +249,8 @@ struct DiscoverView: View {
     
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
-
     
+ 
     @State private var action = false
     @State private var adventure = false
     @State private var animation = false
