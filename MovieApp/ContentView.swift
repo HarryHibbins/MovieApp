@@ -19,6 +19,7 @@ struct watchListView: View{
 
     @State private var WatchlistViewShowing = true;
     @State private var InfoViewShowing = false;
+    @State private var offset = CGSize.zero
     
     
     
@@ -146,12 +147,7 @@ struct watchListView: View{
                             { image in
                                 image.resizable()
                                     .scaledToFit()
-                                    .gesture(DragGesture()
-                                                .onChanged(){ offset in {
-                                        //offset = gesture.translation
-                                    }
-                                        
-                                    })
+                                    
                             } placeholder:
                             {
                                 ProgressView()
