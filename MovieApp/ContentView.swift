@@ -44,13 +44,15 @@ struct watchListView: View{
                                     
                                     HStack
                                     {
-                                        Text(item.title).font(.largeTitle)
+                                        Text(item.title)
+                                            .font(Font.custom("RadioCanada-Regular", size: 30, relativeTo: .largeTitle))
                                             .foregroundColor(.white)
                                         Spacer()
                                     }
                                     HStack
                                     {
-                                        Text(String(item.year)).font(.title3)
+                                        Text(String(item.year))
+                                            .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                             .foregroundColor(Color("ButtonInFocus"))
                                         Spacer()
                                     }
@@ -91,20 +93,12 @@ struct watchListView: View{
                             HStack
                             {
                                 Button(action : {
-                                   
-                                    
                                         loadWatchlistView()
-                                        //cameFromWatchlist = false
-                                    
-                
-                
                                 }, label: {
                                     Image(systemName: "arrowshape.turn.up.left")
                                     .padding()
-                                    //   .frame(maxWidth: .infinity)
                                         .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
-                                        .font(.headline)
                                 })
                                 Spacer()
                                 Button(action : {
@@ -113,12 +107,9 @@ struct watchListView: View{
                                 }, label: {
                                     Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
-                                    //   .frame(maxWidth: .infinity)
-                                        //.background(Color.green.cornerRadius(10))
                                         .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
-                                    
                                         .foregroundColor(.white)
-                                        .font(.headline)
+                                        .font(Font.custom("RadioCanada-SemiBold", size: 18, relativeTo: .title3))
                                 })
                         
                             }
@@ -126,7 +117,8 @@ struct watchListView: View{
                             
                             HStack
                             {
-                                Text(watchListViewModel.title).font(.largeTitle)
+                                Text(watchListViewModel.title)
+                                    .font(Font.custom("RadioCanada-Regular", size: 30, relativeTo: .largeTitle))
                                     .foregroundColor(.white)
                                 Spacer()
                             }
@@ -134,13 +126,15 @@ struct watchListView: View{
                             
                             HStack
                             {
-                                Text(watchListViewModel.releaseDate!).font(.title3)
+                                Text(watchListViewModel.releaseDate!)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             HStack
                             {
-                                Text(watchListViewModel.runningTime!).font(.title3)
+                                Text(watchListViewModel.runningTime!)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
@@ -151,18 +145,15 @@ struct watchListView: View{
                             AsyncImage(url: URL(string: watchListViewModel.Image))
                             { image in
                                 image.resizable()
-                                
-                                   // .frame(width: 200, height: 300)
                                     .scaledToFit()
-                                
-                                //.padding()
                             } placeholder:
                             {
                                 ProgressView()
                             }
                             HStack
                             {
-                                Text("Synopsis: ").font(.title3)
+                                Text("Synopsis: ")
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
@@ -171,6 +162,7 @@ struct watchListView: View{
                             ScrollView
                             {
                                 Text(watchListViewModel.summary)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(.white)
                             }
 
@@ -254,7 +246,6 @@ struct DiscoverView: View {
     @State public var cameFromWatchlist = false
     @State public var lastCallWasSearch = false
     
-    @State private var WatchlistViewShowing = false;
     @State private var DiscoverViewShowing = true;
     @State private var InfoViewShowing = false;
 
@@ -297,7 +288,7 @@ struct DiscoverView: View {
                                 {
                                     if searchText.isEmpty{
                                         Text("Search For...")
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                             .opacity(0.3)
                                     }
                                     TextField ("" , text: $searchText)
@@ -305,9 +296,8 @@ struct DiscoverView: View {
                                         
                                 } .padding()
                                     .background(Color("SearchBarBackground").cornerRadius(10))
-                                    //.background(Color("SearchBarBackground").cornerRadius(10))
                                     .foregroundColor(.white)
-                                    .font(.headline)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .accentColor(.white)
                               
                                     
@@ -320,11 +310,9 @@ struct DiscoverView: View {
                                         .padding()
                                         .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
-                                        .font(.headline)
                                 })
                                 
                             }.padding([.leading, .trailing])
-                            //Spacer()
                             
                             ScrollView(.horizontal)
                             {
@@ -337,7 +325,7 @@ struct DiscoverView: View {
                                             .padding(10)
                                             .background(action ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)
                                             .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "adventure")
@@ -345,7 +333,7 @@ struct DiscoverView: View {
                                         Text("Adventure")
                                             .padding(10)
                                             .background(adventure ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                           .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "animation")
@@ -353,7 +341,7 @@ struct DiscoverView: View {
                                         Text("Animation")
                                             .padding(10)
                                             .background(animation ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "comedy")
@@ -361,7 +349,7 @@ struct DiscoverView: View {
                                         Text("Comedy")
                                             .padding(10)
                                             .background(comedy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
 
                                     Button(action : {
@@ -370,7 +358,7 @@ struct DiscoverView: View {
                                         Text("Crime")
                                             .padding(10)
                                             .background(crime ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     
                                     Button(action : {
@@ -379,7 +367,7 @@ struct DiscoverView: View {
                                         Text("Fantasy")
                                             .padding(10)
                                             .background(fantasy ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "horror")
@@ -387,7 +375,7 @@ struct DiscoverView: View {
                                         Text("Horror")
                                             .padding(10)
                                             .background(horror ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "mystery")
@@ -395,7 +383,7 @@ struct DiscoverView: View {
                                         Text("Mystery")
                                             .padding(10)
                                             .background(mystery ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                    .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "sci-fi")
@@ -403,7 +391,7 @@ struct DiscoverView: View {
                                         Text("Sci-Fi")
                                             .padding(10)
                                             .background(scifi ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                     .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                     Button(action : {
                                         getRandom(forGenre: "thriller")
@@ -411,7 +399,7 @@ struct DiscoverView: View {
                                         Text("Thriller")
                                             .padding(10)
                                             .background(thriller ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(20)                                     .foregroundColor(.white)
-                                            .font(.headline)
+                                            .font(Font.custom("RadioCanada-Regular", size: 18, relativeTo: .title3))
                                     })
                                 }
                             }.padding([.leading, .trailing])
@@ -440,7 +428,8 @@ struct DiscoverView: View {
                             
                             HStack
                             {
-                                Text(viewModel.title).font(.title)
+                                Text(viewModel.title)
+                                    .font(Font.custom("RadioCanada-Regular", size: 30, relativeTo: .largeTitle))
                                     .foregroundColor(.white)
                                     .lineLimit(50)
 
@@ -448,7 +437,8 @@ struct DiscoverView: View {
                                 Spacer()
                                 if viewModel.year != 0
                                 {
-                                    Text(String(viewModel.year)).font(.title3)
+                                    Text(String(viewModel.year))
+                                        .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                         .foregroundColor(.white)
                                 }
                               
@@ -462,7 +452,7 @@ struct DiscoverView: View {
                                         .padding()
                                         .background(Color.red.cornerRadius(10))
                                         .foregroundColor(.white)
-                                        .font(.headline)
+                                        .font(Font.custom("RadioCanada-SemiBold", size: 18, relativeTo: .title3))
                                 })
                                 Spacer()
                                 Button(action : {
@@ -471,38 +461,13 @@ struct DiscoverView: View {
                                 }, label: {
                                     Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
-                                    //   .frame(maxWidth: .infinity)
-                                        //.background(Color.green.cornerRadius(10))
+                                        .font(Font.custom("RadioCanada-SemiBold", size: 18, relativeTo: .title3))
                                         .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
-                                    
                                         .foregroundColor(.white)
-                                        .font(.headline)
                                 })
                             }.padding([.leading, .trailing, .bottom])
                             
-                            HStack {
                                 
-                                
-            //                        Button(action : {
-            //                            loadWatchlistView()
-            //
-            //                        }, label: {
-            //                            Text("Watchlist")
-            //                                .padding()
-            //                                .background(WatchlistViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
-            //                                .font(.headline)
-            //                        })
-            //                        Button(action : {
-            //                            loadDiscoverView()
-            //                        }, label: {
-            //                            Text("Discover")
-            //                                .padding()
-            //                                .background(DiscoverViewShowing ? Color("ButtonInFocus") : Color("SearchBarBackground")).cornerRadius(10)                                 .foregroundColor(.white)
-            //                                .font(.headline)
-            //
-            //                        })
-                            }
-                            
                         }
                     }
                     if InfoViewShowing
@@ -513,23 +478,16 @@ struct DiscoverView: View {
                             HStack
                             {
                                 Button(action : {
-                                    if !cameFromWatchlist
-                                    {
+                                   
                                         loadDiscoverView()
-                                    }
-                                    else {
-                                        loadWatchlistView()
-                                        cameFromWatchlist = false
-                                    }
-                
+                                    
+          
                 
                                 }, label: {
                                     Image(systemName: "arrowshape.turn.up.left")
                                     .padding()
-                                    //   .frame(maxWidth: .infinity)
                                         .background(Color("ButtonInFocus").cornerRadius(10))
                                         .foregroundColor(.white)
-                                        .font(.headline)
                                 })
                                 Spacer()
                                 
@@ -539,19 +497,17 @@ struct DiscoverView: View {
                                 }, label: {
                                     Text(hasSavedItem ? ("Remove") : ("Save"))
                                         .padding()
-                                    //   .frame(maxWidth: .infinity)
-                                        //.background(Color.green.cornerRadius(10))
                                         .background(hasSavedItem ? Color.red : Color.green).cornerRadius(20)
-                                    
                                         .foregroundColor(.white)
-                                        .font(.headline)
+                                        .font(Font.custom("RadioCanada-SemiBold", size: 18, relativeTo: .title3))
                                 })
                             }
                             
                             
                             HStack
                             {
-                                Text(viewModel.title).font(.largeTitle)
+                                Text(viewModel.title)
+                                    .font(Font.custom("RadioCanada-Regular", size: 30, relativeTo: .largeTitle))
                                     .foregroundColor(.white)
                                 Spacer()
                             }
@@ -559,13 +515,15 @@ struct DiscoverView: View {
                             
                             HStack
                             {
-                                Text(viewModel.releaseDate!).font(.title3)
+                                Text(viewModel.releaseDate!)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
                             HStack
                             {
-                                Text(viewModel.runningTime!).font(.title3)
+                                Text(viewModel.runningTime!)//.font(.title3)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
@@ -576,11 +534,7 @@ struct DiscoverView: View {
                             AsyncImage(url: URL(string: viewModel.Image))
                             { image in
                                 image.resizable()
-                                
-                                 //   .frame(width: 300, height: 400)
                                     .scaledToFit()
-                                
-                                //.padding()
                             } placeholder:
                             {
                                 ProgressView()
@@ -588,7 +542,8 @@ struct DiscoverView: View {
                                
                             HStack
                             {
-                                Text ("Synopsis: ").font(.title3)
+                                Text ("Synopsis: ")
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
                                     .foregroundColor(Color("ButtonInFocus"))
                                 Spacer()
                             }
@@ -596,6 +551,8 @@ struct DiscoverView: View {
                             {
                                 Text(viewModel.summary)
                                     .foregroundColor(.white)
+                                    .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
+
                             }
 
                             
@@ -728,8 +685,7 @@ struct DiscoverView: View {
         
         viewModel.refreshMovieGenre(forSearch: genre){viewModel.refresh(forSearch: viewModel.id, forDiscard: false)}
         lastCallWasSearch = false
-        
-       // viewModel.getRandomItem()
+
     }
     
     public func saveOrRemoveFromWatchlist()
@@ -769,26 +725,17 @@ struct DiscoverView: View {
  
     
     
-    public func loadWatchlistView()
-    {
-        
-        DiscoverViewShowing = false
-        WatchlistViewShowing = true
-        
-       // WatchListView()
-    }
+   
     
     public func loadDiscoverView()
     {
         DiscoverViewShowing = true
-        WatchlistViewShowing = false
         InfoViewShowing = false
     }
     
     public func loadInfoView()
     {
         DiscoverViewShowing = false
-        WatchlistViewShowing = false
         InfoViewShowing = true
     }
     
@@ -814,6 +761,8 @@ struct ContentView: View {
                .tabItem {
                    Image(systemName: "eyes")
                    Text("Discover")
+                       .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
+
                }
            
            watchListView(watchListItems: $watchListItems, viewModel: viewModel,  watchListViewModel: watchListViewModel, hasSavedItem: $hasSavedItem)
@@ -822,6 +771,8 @@ struct ContentView: View {
                       
                         
                        Text("Watchlist")
+                           .font(Font.custom("RadioCanada-Light", size: 18, relativeTo: .title3))
+
                    }
            
            

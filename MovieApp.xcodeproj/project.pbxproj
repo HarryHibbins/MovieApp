@@ -11,6 +11,9 @@
 		B67F2804282A9B9F00228F2A /* Watchlist.json in Resources */ = {isa = PBXBuildFile; fileRef = B67F2803282A9B9F00228F2A /* Watchlist.json */; };
 		B6B3D9BF2827E67300EE2586 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9BE2827E67300EE2586 /* ViewModel.swift */; };
 		B6B3D9E52827EB5400EE2586 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B3D9E42827EB5400EE2586 /* Item.swift */; };
+		B6CBE3FD28311CB200FB83C5 /* RadioCanada-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6CBE3FA28311CB200FB83C5 /* RadioCanada-Regular.ttf */; };
+		B6CBE3FF28311CB200FB83C5 /* RadioCanada-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6CBE3FC28311CB200FB83C5 /* RadioCanada-Light.ttf */; };
+		B6CBE40128311E3F00FB83C5 /* RadioCanada-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6CBE40028311E3F00FB83C5 /* RadioCanada-SemiBold.ttf */; };
 		B6DA3ADB282694C200ED0F24 /* MovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */; };
 		B6DA3ADD282694C200ED0F24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3ADC282694C200ED0F24 /* ContentView.swift */; };
 		B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DA3ADE282694C500ED0F24 /* Assets.xcassets */; };
@@ -23,6 +26,10 @@
 		B67F2803282A9B9F00228F2A /* Watchlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Watchlist.json; sourceTree = "<group>"; };
 		B6B3D9BE2827E67300EE2586 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		B6B3D9E42827EB5400EE2586 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		B6CBE3F5283118DE00FB83C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B6CBE3FA28311CB200FB83C5 /* RadioCanada-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-Regular.ttf"; path = "../../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-Regular.ttf"; sourceTree = "<group>"; };
+		B6CBE3FC28311CB200FB83C5 /* RadioCanada-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-Light.ttf"; path = "../../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-Light.ttf"; sourceTree = "<group>"; };
+		B6CBE40028311E3F00FB83C5 /* RadioCanada-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-SemiBold.ttf"; path = "../../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-SemiBold.ttf"; sourceTree = "<group>"; };
 		B6DA3AD7282694C200ED0F24 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppApp.swift; sourceTree = "<group>"; };
 		B6DA3ADC282694C200ED0F24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +68,7 @@
 		B6DA3AD9282694C200ED0F24 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				B6CBE3F5283118DE00FB83C5 /* Info.plist */,
 				B6DA3ADA282694C200ED0F24 /* MovieAppApp.swift */,
 				B6DA3ADC282694C200ED0F24 /* ContentView.swift */,
 				B635AEB8282D3DC100BBDA15 /* Watchlist.swift */,
@@ -68,6 +76,9 @@
 				B6B3D9E42827EB5400EE2586 /* Item.swift */,
 				B6B3D9BE2827E67300EE2586 /* ViewModel.swift */,
 				B6DA3ADE282694C500ED0F24 /* Assets.xcassets */,
+				B6CBE3FC28311CB200FB83C5 /* RadioCanada-Light.ttf */,
+				B6CBE40028311E3F00FB83C5 /* RadioCanada-SemiBold.ttf */,
+				B6CBE3FA28311CB200FB83C5 /* RadioCanada-Regular.ttf */,
 				B6DA3AE0282694C500ED0F24 /* Preview Content */,
 				B67F2803282A9B9F00228F2A /* Watchlist.json */,
 			);
@@ -143,6 +154,9 @@
 				B6DA3AE2282694C500ED0F24 /* Preview Assets.xcassets in Resources */,
 				B67F2804282A9B9F00228F2A /* Watchlist.json in Resources */,
 				B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */,
+				B6CBE3FF28311CB200FB83C5 /* RadioCanada-Light.ttf in Resources */,
+				B6CBE3FD28311CB200FB83C5 /* RadioCanada-Regular.ttf in Resources */,
+				B6CBE40128311E3F00FB83C5 /* RadioCanada-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +305,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MovieApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -319,6 +334,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MovieApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
