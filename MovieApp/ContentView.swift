@@ -450,7 +450,7 @@ struct DiscoverView: View {
                                     Discard(nextInList: lastCallWasSearch, forGenre: currentGenre)
                                 }, label: {
                                     //Text("New Suggestion")
-                                    Text("Discard")
+                                    Text("Next Suggestion")
                                         .padding()
                                         .background(Color.red.cornerRadius(10))
                                         .foregroundColor(.white)
@@ -590,7 +590,7 @@ struct DiscoverView: View {
         discardCount = 0
         viewModel.refresh(forSearch: searchText, forDiscard: false)
         lastCallWasSearch = true
-        //Fix for dans testing    hasSavedItem = false
+        hasSavedItem = false
      
 
         
