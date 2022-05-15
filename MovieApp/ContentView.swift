@@ -32,7 +32,8 @@ struct watchListView: View{
                     {
                         VStack
                         {
-                            Text("Your Watchlist").font(.largeTitle)
+                            Text("Your Watchlist")
+                                .font(Font.custom("RadioCanada-Regular", size: 30, relativeTo: .largeTitle))
                                                    .foregroundColor(.white)
                                                
                            
