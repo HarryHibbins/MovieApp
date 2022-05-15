@@ -61,16 +61,7 @@ public class ViewModel: ObservableObject {
     
     public func getRandomItem() -> String
     {
-//        var finalString = "tt"
-//        var aString = IDArray.randomElement()
-//        let filteredChars = "\"/title"
-//
-//        aString = aString?.filter { filteredChars.range(of: String($0)) == nil }
-//        
-//        finalString += aString? ??
-//            
-//        refresh(forSearch: finalString, forDiscard: true)
-//
+
         
         print ("Random Search Count:" , IDArray.count)
         
@@ -125,24 +116,7 @@ public class ViewModel: ObservableObject {
         
         movieAPI.randomMoviePopularGenre(forSearch: genre) { movie in DispatchQueue.main.async {
             
-          //  var strings: [String] = []
-            
-//            for index in 0..<movie.count
-//            {
-//                var aString = movie[index]
-//                //strings[index].append(movie[index])
-//                let filteredChars = "\"/title"
-//                
-//                aString = movie[index].filter { filteredChars.range(of: String($0)) == nil }
-//                
-//                finalString += aString
-//                
-//                print("Item added to list" , finalString)
-//                self.IDArray.append(finalString)
-//                
-//            }
-            
-            //self.IDArray = strings
+
             self.IDArray.removeAll()
             print("reset count: ",self.IDArray.count)
             

@@ -80,17 +80,7 @@ public final class MovieAPI : NSObject
                 
                 do {
                     
-    
-                   // let httpResponse = response as? HTTPURLResponse
-
-                    
-                    //if let jsonData = jsonString.data(using: .utf8) {
-                    
-                    
-//                        let response = try! JSONDecoder().decode(ResponseGenre.self, from: data!)
-//                    
-//                        print("Response genre ", response)
-             
+                
                     
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
@@ -103,104 +93,6 @@ public final class MovieAPI : NSObject
                      
                     self.completionHandlerGenre?([String](results))
                     
-                    
-//                    let dictionary = try! JSONSerialization.jsonObject(with: data!) as! [Any]
-//
-//
-//
-//                        //print (dictionary)
-//                    var count = 0
-//
-//                    var JSONString = ""
-//                    for (key) in dictionary as! [String]{
-//                        JSONString +=  String(count)
-//                        JSONString += """
-//                        :"
-//                        """
-//                        JSONString += key
-//                        JSONString += """
-//                        ",
-//                        """
-//                        //JSONString += ","
-//                        count += 1
-//
-//                    }
-//
-//                    print (JSONString)
-//
-//                    let jsonData = JSONString.data(using: .utf8)
-//                    do {
-//                      let decoder = JSONDecoder()
-//                        let tableData = try decoder.decode(ResponseGenre.self, from: jsonData!)
-//                      print(tableData)
-//                        //print("Rows in array: \(tableData.count)")
-//                    }
-//                    catch {
-//                      print (error)
-//                    }
-
-                    
-                    //self.genreResults = dictionary as! [String]
-//                    var jsonString = ""
-//
-//                    var count = 0
-//                    for (key) in dictionary as! [String]{
-//                        print("\(key)  ")
-//                        jsonString += key
-//
-//
-//
-//                    }
-//
-//                    print ("GENRE RESULTS: ", self.genreResults)
-//
-//                    let array = jsonString.components(separatedBy: ",")
-//
-//                    print(array)
-//                    print(array[1])
-     
-                    
-//                    var jsonString = "["
-//                    //self.genreResults = dictionary as! [String]
-//
-//
-//                    for (key) in dictionary as! [String]{
-//                        print("\(key)  ")
-//                        jsonString += key
-//                        jsonString += ","
-//
-//                        print ("RESULTS: " , key)
-//
-//                    }
-//                    jsonString += "]"
-//
-//
-//                    print(jsonString)
-//                    if let jsonData = jsonString.data(using: .utf8) {
-//                   let myModel = try! JSONDecoder().decode(MyModel.self, from: jsonData)
-//                 }
-           
-                
-//                    for result in dictionary as! [String]
-//                    {
-//                        self.genreResults.append(result)
-//                        print ("append" , result)
-//                    }
-//
-                    
-//                 
-//                    let jsonData = try! JSONEncoder().encode(jsonString)
-//                    let jsonString_ = String(data: jsonData, encoding: .utf8)!
-//
-//                    print( "JSON DATA" , jsonString_
-//                    
-//                    )
-//                    //var result = ResponseGenre.init(result: jsonString)
-//                    
-//                    let response = try! JSONDecoder().decode([ResponseGenre].self, from: jsonData)
-                   
-                  //  self.completionHandlerGenre?(Item(responseGenre: response))
-
                     
                 }
                 catch {
