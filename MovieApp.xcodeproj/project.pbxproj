@@ -15,9 +15,9 @@
 		B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DA3ADE282694C500ED0F24 /* Assets.xcassets */; };
 		B6DA3AE2282694C500ED0F24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DA3AE1282694C500ED0F24 /* Preview Assets.xcassets */; };
 		B6DA3AE9282694FC00ED0F24 /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DA3AE8282694FC00ED0F24 /* MovieAPI.swift */; };
-		F51F6BB628355121003ADB50 /* RadioCanada-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BB528355120003ADB50 /* RadioCanada-Regular.ttf */; };
-		F51F6BB828355132003ADB50 /* RadioCanada-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BB728355132003ADB50 /* RadioCanada-SemiBold.ttf */; };
-		F51F6BBA28355141003ADB50 /* RadioCanada-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BB928355141003ADB50 /* RadioCanada-Light.ttf */; };
+		F51F6BC428355F58003ADB50 /* RadioCanada-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BC128355F58003ADB50 /* RadioCanada-SemiBold.ttf */; };
+		F51F6BC528355F58003ADB50 /* RadioCanada-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BC228355F58003ADB50 /* RadioCanada-Light.ttf */; };
+		F51F6BC628355F58003ADB50 /* RadioCanada-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F6BC328355F58003ADB50 /* RadioCanada-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 		B6DA3ADE282694C500ED0F24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6DA3AE1282694C500ED0F24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B6DA3AE8282694FC00ED0F24 /* MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
-		F51F6BB528355120003ADB50 /* RadioCanada-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-Regular.ttf"; path = "../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-Regular.ttf"; sourceTree = "<group>"; };
-		F51F6BB728355132003ADB50 /* RadioCanada-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-SemiBold.ttf"; path = "../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-SemiBold.ttf"; sourceTree = "<group>"; };
-		F51F6BB928355141003ADB50 /* RadioCanada-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RadioCanada-Light.ttf"; path = "../../../Downloads/Radio_Canada/static/RadioCanada/RadioCanada-Light.ttf"; sourceTree = "<group>"; };
+		F51F6BC128355F58003ADB50 /* RadioCanada-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RadioCanada-SemiBold.ttf"; sourceTree = "<group>"; };
+		F51F6BC228355F58003ADB50 /* RadioCanada-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RadioCanada-Light.ttf"; sourceTree = "<group>"; };
+		F51F6BC328355F58003ADB50 /* RadioCanada-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RadioCanada-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +73,9 @@
 				B6B3D9E42827EB5400EE2586 /* Item.swift */,
 				B6B3D9BE2827E67300EE2586 /* ViewModel.swift */,
 				B6DA3ADE282694C500ED0F24 /* Assets.xcassets */,
-				F51F6BB928355141003ADB50 /* RadioCanada-Light.ttf */,
-				F51F6BB728355132003ADB50 /* RadioCanada-SemiBold.ttf */,
-				F51F6BB528355120003ADB50 /* RadioCanada-Regular.ttf */,
+				F51F6BC228355F58003ADB50 /* RadioCanada-Light.ttf */,
+				F51F6BC328355F58003ADB50 /* RadioCanada-Regular.ttf */,
+				F51F6BC128355F58003ADB50 /* RadioCanada-SemiBold.ttf */,
 				B6DA3AE0282694C500ED0F24 /* Preview Content */,
 				B67F2803282A9B9F00228F2A /* Watchlist.json */,
 			);
@@ -150,10 +150,10 @@
 			files = (
 				B6DA3AE2282694C500ED0F24 /* Preview Assets.xcassets in Resources */,
 				B67F2804282A9B9F00228F2A /* Watchlist.json in Resources */,
+				F51F6BC428355F58003ADB50 /* RadioCanada-SemiBold.ttf in Resources */,
 				B6DA3ADF282694C500ED0F24 /* Assets.xcassets in Resources */,
-				F51F6BB628355121003ADB50 /* RadioCanada-Regular.ttf in Resources */,
-				F51F6BBA28355141003ADB50 /* RadioCanada-Light.ttf in Resources */,
-				F51F6BB828355132003ADB50 /* RadioCanada-SemiBold.ttf in Resources */,
+				F51F6BC528355F58003ADB50 /* RadioCanada-Light.ttf in Resources */,
+				F51F6BC628355F58003ADB50 /* RadioCanada-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
