@@ -1,9 +1,4 @@
-//
-//  MovieAppApp.swift
-//  MovieApp
-//
-//  Created by Harrison Hibbins on 07/05/2022.
-//
+
 
 import SwiftUI
 

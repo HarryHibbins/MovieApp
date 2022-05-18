@@ -1,9 +1,3 @@
-//
-//  Item.swift
-//  MovieApp
-//
-//  Created by Harrison Hibbins on 08/05/2022.
-//
 
 import Foundation
 import SwiftUI
